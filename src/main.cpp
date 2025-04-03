@@ -21,7 +21,7 @@ int main() {
     std::cout << context.scene.camera.transform.axes() << std::endl;
 
     //context.scene.camera.Rotate(Vec3::Up,M_PIf32/2.f);
-    Vec3 fwd2 = Quaternion{0.7071068f,0.7071068f,0,0} * Vec3::Forward;
+    Vec3 fwd2 = (Quaternion{0.7071068f,0,0.7071068f,0} * Vec3::Forward).normalized();
 
     std::cout << context.scene.camera.transform.axes() << std::endl;
     //UP

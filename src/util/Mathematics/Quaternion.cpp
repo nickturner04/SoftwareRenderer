@@ -16,7 +16,9 @@ Quaternion Quaternion::operator*(const float _rhs) const {
     return {w * _rhs, xyz * _rhs};
 }
 
-
+//Function From StackExchange
+//https://gamedev.stackexchange.com/questions/28395/rotating-vector3-by-a-quaternion
+//Author: Laurent Couvidou
 Vec3 Quaternion::operator*(const Vec3 &_rhs) const {
     // Extract the vector part of the quaternion
     const Vec3 u = this->VectorComponent();
@@ -27,7 +29,7 @@ Vec3 Quaternion::operator*(const Vec3 &_rhs) const {
     // Do the math
     const auto vprime = 2.0f * u.dot(_rhs) * u
                         + (s*s - u.dot(u)) * _rhs
-                        + 2.0f * s * u.cross(u);
+                        + 2.0f * s * u.cross(_rhs);
     return vprime;
 }
 
