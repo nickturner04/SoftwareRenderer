@@ -1,0 +1,103 @@
+//
+// Created by s5614562 on 06/03/25.
+//
+
+#ifndef MATHEMATICS_H
+#define MATHEMATICS_H
+#include <ostream>
+
+#include "Mathematics/Matrix4f.h"
+
+class Vec3 {
+public:
+    Vec3(float _x, float _y, float _z):
+    x{_x},y{_y},z{_z} {}
+    Vec3() = default;
+    static Vec3 Zero;
+    static Vec3 Up;
+    Vec3 operator * (float _rhs) const;
+    Vec3 operator * (const Vec3& _rhs) const;
+    Vec3 operator +(const Vec3& _rhs) const;
+    Vec3 operator -(const Vec3& _rhs) const;
+    Vec3 &operator += (const Vec3& _rhs);
+
+    Vec3 Translate(const Vec3& translation,const Vec3& forward,const Vec3&up = Up) const;
+    Vec3 Rotate(const Vec3& _axis, float angle) const;
+
+    float dot(const Vec3& _rhs) const;
+    Vec3 cross(const Vec3& _rhs) const;
+    Vec3 normalized() const;
+    float magnitude() const;
+
+    float x = 0.0f;
+    float y = 0.0f;
+    float z = 0.0f;
+};
+
+inline Vec3 operator*(const float _lhs, const Vec3 & _rhs) {
+    return {_lhs * _rhs.x, _lhs * _rhs.y, _lhs * _rhs.z};
+}
+
+std::ostream& operator<<(std::ostream &os, const Vec3 &_q);
+
+class Quaternion {
+    public:
+    Quaternion(const float _w, const float _x, const float _y, const float _z):w{_w},xyz{_x,_y,_z}{}
+    Quaternion(const float _w, const Vec3 _xyz): w{_w},xyz{_xyz}{}
+
+    //Create a Quaternion from Euler angles
+    static Quaternion Euler(Vec3 angles);
+    static Quaternion Euler(float x, float y, float z);
+    static Quaternion LookRotation(Vec3 forward, Vec3 up = Vec3(0.0f, 1.0f, 0.0f));
+
+    //Create a Quaternion from Angle Axis
+    static Quaternion AxisAngle(const Vec3& axis, float angle);
+
+    Vec3 VectorComponent() const {return xyz;};
+
+    //Scale a Quaternion by a float
+    Quaternion operator * ( const float _rhs) const;
+
+    //Rotate a Vec3 By a Quaternion
+    Vec3 operator * (const Vec3& _rhs) const;
+
+    //Rotate a Quaternion by a Quaternion
+    Quaternion operator * (const Quaternion& _rhs) const;
+
+    //Convert to Rotation Matrix
+    Matrix4f toMatrix4f() const;
+
+    //W is the Scalar. XYZ are the vector components.
+    float w = 1.f;
+    Vec3 xyz = {1.f,1.f,1.f};
+};
+
+std::ostream& operator<<(std::ostream &os, const Quaternion &_q);
+
+class Transformation {
+public:
+    Vec3 position;
+    Quaternion rotation;
+
+    Vec3 forward() const {
+        return rotation * Vec3(0,0,1);
+    }
+    Vec3 up() const {
+        return rotation * Vec3(0,1,0);
+    }
+};
+
+struct Tri {
+    Tri(const Vec3& _a, const Vec3& _b, const Vec3& _c):
+    a{_a},b{_b},c{_c} {}
+    Vec3 a;
+    Vec3 b;
+    Vec3 c;
+
+    void Flip();
+    Tri Transform(const Vec3& _origin) const;
+    Tri flipped() const;
+    Vec3 ab() const;
+    Vec3 ac() const;
+};
+#endif //MATHEMATICS_H
