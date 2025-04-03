@@ -2,7 +2,7 @@
 // Created by s5614562 on 06/03/25.
 //
 
-#include "Simulation/Scene.h"
+#include "../../include/Simulation/Scene.h"
 #include <cmath>
 namespace nsr {
 

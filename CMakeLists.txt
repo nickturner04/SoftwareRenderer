@@ -18,12 +18,14 @@ add_executable(NSR src/main.cpp
         src/UI/Widget/3D/Viewport.cpp
         include/Render/SoftwareRenderer.h
         include/Simulation/Scene.h
-        src/Simulation/Scene.cpp
+        src/Render/Scene.cpp
         src/Render/SoftwareRenderer.cpp
         src/util/Mathematics/Vec3.cpp
         include/Mathematics.h
         src/util/Mathematics/Tri.cpp
         src/util/Mathematics/Quaternion.cpp
         include/Mathematics/Matrix4f.h
-        src/util/Mathematics/Matrix4f.cpp)
+        src/util/Mathematics/Matrix4f.cpp
+        src/Render/Camera.cpp
+        src/util/Mathematics/Transformation.cpp)
 target_link_libraries(NSR SDL2::SDL2 SDL2_image::SDL2_image-static SDL2_ttf::SDL2_ttf-static)

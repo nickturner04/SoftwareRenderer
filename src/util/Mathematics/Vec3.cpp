@@ -21,6 +21,10 @@ Vec3 Vec3::operator+(const Vec3 &_rhs) const {
     return {x + _rhs.x, y + _rhs.y, z + _rhs.z};
 }
 
+Vec3 Vec3::operator-() const {
+    return {-x, -y, -z};
+}
+
 Vec3 Vec3::operator-(const Vec3 &_rhs) const {
     return {x - _rhs.x, y - _rhs.y, z - _rhs.z};
 }

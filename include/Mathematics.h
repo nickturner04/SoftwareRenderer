@@ -19,6 +19,7 @@ public:
     Vec3 operator * (const Vec3& _rhs) const;
     Vec3 operator +(const Vec3& _rhs) const;
     Vec3 operator -(const Vec3& _rhs) const;
+    Vec3 operator -() const;
     Vec3 &operator += (const Vec3& _rhs);
 
     Vec3 Translate(const Vec3& translation,const Vec3& forward,const Vec3&up = Up) const;
@@ -42,6 +43,7 @@ std::ostream& operator<<(std::ostream &os, const Vec3 &_q);
 
 class Quaternion {
     public:
+    Quaternion() = default;
     Quaternion(const float _w, const float _x, const float _y, const float _z):w{_w},xyz{_x,_y,_z}{}
     Quaternion(const float _w, const Vec3 _xyz): w{_w},xyz{_xyz}{}
 
@@ -79,10 +81,14 @@ public:
     Vec3 position;
     Quaternion rotation;
 
-    Vec3 forward() const {
-        return rotation * Vec3(0,0,1);
+    void Rotate(const Quaternion& _rotation);
+    void Translate(const Vec3& translation);
+
+    [[nodiscard]] Vec3 forward(){
+        const auto fwd = Vec3(0,0,1);
+        return rotation * fwd;
     }
-    Vec3 up() const {
+    [[nodiscard]] Vec3 up(){
         return rotation * Vec3(0,1,0);
     }
 };

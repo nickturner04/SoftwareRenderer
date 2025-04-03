@@ -67,8 +67,7 @@ class SceneObject {
 
 class Camera {
 public:
-    Vec3 origin = {0.f,0.f,0.f};
-    Vec3 direction = {0.f,0.f,1.f};
+    Transformation transform;
     Vec3 dimensions = {12.f,9.f,20.f};
 };
 

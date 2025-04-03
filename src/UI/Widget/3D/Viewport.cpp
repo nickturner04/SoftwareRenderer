@@ -33,20 +33,21 @@ void Viewport::Draw(SDL_Renderer *renderer, MouseState mouse_state) {
 
     if(IsHovered(mouse_state.x, mouse_state.y)) {
         if(mouse_state.buttons & SDL_BUTTON_LEFT) {
-            const Quaternion q1 = Quaternion::AxisAngle({1,0,0},mouse_state.dx);
-            const Quaternion q2 = Quaternion::AxisAngle({0,1,0},mouse_state.dy);
-            const Quaternion q3 = q1 * q2;
+            const Quaternion q1 = Quaternion::AxisAngle({1,0,0},mouse_state.dx * 0.01f);
+            const Quaternion q2 = Quaternion::AxisAngle({0,1,0},mouse_state.dy * 0.01f);
+            camera.transform.Rotate(q1 * q2);
             //std::cout << q3 << '\n';
-            std::cout << "Old Direction: " << camera.direction;
-            camera.direction = q3 * camera.direction;
-            std::cout << "New Direction: " << camera.direction << '\n';
+            //std::cout << "Old Direction: " << camera.direction;
+            //camera.direction = q3 * camera.direction;
+            //std::cout << "New Direction: " << camera.direction << '\n';
         }
         else if(mouse_state.buttons & SDL_BUTTON(2)) {
-            camera.origin.x += static_cast<float>(mouse_state.dx) * 0.01f;
-            camera.origin.y += static_cast<float>(mouse_state.dy) * 0.01f;
+            const auto translation = Vec3(static_cast<float>(mouse_state.dx) * 0.01f,static_cast<float>(mouse_state.dy) * 0.01f,0.f);
+            camera.transform.Translate(translation);
         }
         else if(mouse_state.buttons & SDL_BUTTON(3)) {
-            camera.origin.z += static_cast<float>(mouse_state.dy) * 0.01f;
+            const auto translation = Vec3(0.f,0.f,static_cast<float>(mouse_state.dy) * 0.01f);
+            camera.transform.Translate(translation);
         }
     }
     screen->Render(*scene);
