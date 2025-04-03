@@ -3,6 +3,9 @@
 //
 
 #include "Render/SoftwareRenderer.h"
+
+#include <iostream>
+
 #include "Simulation/Scene.h"
 
 namespace nsr {
@@ -54,15 +57,17 @@ void RenderScreen::Render(const Scene &scene) const {
 
     for (int i = 0; i < width; ++i) {
         for (int j = 0; j < height; ++j) {
-            auto forward = Vec3(0, 0, 1);
-            auto up = Vec3(0, 1, 0);
-            auto right = -forward.cross(up);
+            auto forward = camera.transform.forward();
+            auto up = camera.transform.up();
+            auto right = forward.cross(up);
 
-            const auto sPoint = Vec3(static_cast<float>(i) / static_cast<float>(width), static_cast<float>(j) / static_cast<float>(height),0);
+            //std::cout << "FORWARD: " << forward << " UP: " << up << " RIGHT: " << right << '\n';
+            const auto sPoint = Vec3(static_cast<float>(i) / static_cast<float>(width),
+                                     static_cast<float>(j) / static_cast<float>(height), 0);
             const auto fh = camera.dimensions.y * 2;
             const auto fw = camera.dimensions.x * 2;
             //auto worldPoint = Vec3(-camera.dimensions.x,-camera.dimensions.y,camera.dimensions.z);
-            auto worldPoint = forward * camera.dimensions.z - right * camera.dimensions.x - up * camera.dimensions.y;
+            auto worldPoint = forward * camera.dimensions.z + right * camera.dimensions.x - up * camera.dimensions.y;
             worldPoint.x += sPoint.x * fw + (sPoint.x * 0.5f);
             worldPoint.y += sPoint.y * fh + (sPoint.y * 0.5f);
             const auto dir = (worldPoint - camera.transform.position).normalized();

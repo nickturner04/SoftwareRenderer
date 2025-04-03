@@ -69,6 +69,8 @@ class Camera {
 public:
     Transformation transform;
     Vec3 dimensions = {12.f,9.f,20.f};
+
+    void Rotate(const Vec3 &axis, float angle);
 };
 
 class Scene {

@@ -7,6 +7,7 @@
 
 Vec3 Vec3::Zero = Vec3(0, 0, 0);
 Vec3 Vec3::Up = Vec3(0, 1, 0);
+Vec3 Vec3::Forward = Vec3(0, 0, 1);
 
 Vec3 Vec3::operator *(float _rhs) const {
     return {x * _rhs, y * _rhs, z * _rhs};

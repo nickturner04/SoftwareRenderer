@@ -5,6 +5,7 @@
 
 #include "ProgramContext.h"
 #include "UserInterface.h"
+#include "Viewport.h"
 #include "Simulation/Scene.h"
 
 int main() {
@@ -16,9 +17,19 @@ int main() {
     auto context = ProgramContext();
     auto ui = nsi::UserInterface(context);
     ui.BuildUI();
-    context.scene.AddSphere(Vec3(-2,0,5),1.0f, Vec3(1.f,0,0));
-    context.scene.AddSphere(Vec3(2,0,5),1.0f, Vec3(0,0,1.f));
-    context.scene.AddSphere(Vec3(0,0,5),1.0f, Vec3(0,1.f,0));
+
+    std::cout << context.scene.camera.transform.axes() << std::endl;
+
+    //context.scene.camera.Rotate(Vec3::Up,M_PIf32/2.f);
+    Vec3 fwd2 = Quaternion{0.7071068f,0.7071068f,0,0} * Vec3::Forward;
+
+    std::cout << context.scene.camera.transform.axes() << std::endl;
+    //UP
+    context.scene.AddSphere(Vec3(0,3,0),1.0f, Vec3(0,1,0));
+    //LEFT
+    context.scene.AddSphere(Vec3(3,0,0),1.0f, Vec3(1,0,0));
+    //Forward
+    context.scene.AddSphere(Vec3(0,0,5),1.0f, Vec3(0,0,1));
 
 
     context.scene.AddTriangle(Vec3(-1,2,5),Tri(Vec3(-.5f,-.5f,0),Vec3(0,.5f,0),Vec3(.5f,-.5f,0)),Vec3(1,0,0));

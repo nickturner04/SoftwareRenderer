@@ -15,6 +15,7 @@ public:
     Vec3() = default;
     static Vec3 Zero;
     static Vec3 Up;
+    static Vec3 Forward;
     Vec3 operator * (float _rhs) const;
     Vec3 operator * (const Vec3& _rhs) const;
     Vec3 operator +(const Vec3& _rhs) const;
@@ -71,10 +72,18 @@ class Quaternion {
 
     //W is the Scalar. XYZ are the vector components.
     float w = 1.f;
-    Vec3 xyz = {1.f,1.f,1.f};
+    Vec3 xyz = {0.f,0.f,0.f};
 };
 
 std::ostream& operator<<(std::ostream &os, const Quaternion &_q);
+
+struct Axes {
+    Vec3 x = {1.f,0.f,0.f};
+    Vec3 y = {0.f,1.f,0.f};
+    Vec3 z = {0.f,0.f,1.f};
+};
+
+std::ostream& operator<<(std::ostream &os, const Axes &_axes);
 
 class Transformation {
 public:
@@ -84,13 +93,9 @@ public:
     void Rotate(const Quaternion& _rotation);
     void Translate(const Vec3& translation);
 
-    [[nodiscard]] Vec3 forward(){
-        const auto fwd = Vec3(0,0,1);
-        return rotation * fwd;
-    }
-    [[nodiscard]] Vec3 up(){
-        return rotation * Vec3(0,1,0);
-    }
+    Vec3 forward();
+    Vec3 up();
+    Axes axes();
 };
 
 struct Tri {

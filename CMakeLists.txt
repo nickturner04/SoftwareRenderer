@@ -27,5 +27,6 @@ add_executable(NSR src/main.cpp
         include/Mathematics/Matrix4f.h
         src/util/Mathematics/Matrix4f.cpp
         src/Render/Camera.cpp
-        src/util/Mathematics/Transformation.cpp)
+        src/util/Mathematics/Transformation.cpp
+        src/util/Mathematics/Axes.cpp)
 target_link_libraries(NSR SDL2::SDL2 SDL2_image::SDL2_image-static SDL2_ttf::SDL2_ttf-static)
