@@ -9,6 +9,11 @@ Vec3 Vec3::Zero = Vec3(0, 0, 0);
 Vec3 Vec3::Up = Vec3(0, 1, 0);
 Vec3 Vec3::Forward = Vec3(0, 0, 1);
 
+Vec3 Vec3::Lerp(const Vec3 &a, const Vec3 &b, const float t) {
+    return a + (b - a) * t;
+}
+
+
 Vec3 Vec3::operator *(float _rhs) const {
     return {x * _rhs, y * _rhs, z * _rhs};
 }
@@ -37,6 +42,10 @@ Vec3 &Vec3::operator+=(const Vec3 &_rhs) {
     return *this;
 }
 
+bool Vec3::operator==(const Vec3 &_rhs) const {
+    return x == _rhs.x && y == _rhs.y && z == _rhs.z;
+}
+
 Vec3 Vec3::Translate(const Vec3 &translation, const Vec3 &forward, const Vec3 &up) const {
     const Vec3 right = forward * up;
     return *this + forward * translation.z + up * translation.y + right * translation.x;
@@ -55,7 +64,9 @@ float Vec3::dot(const Vec3 &_rhs) const{
 }
 
 Vec3 Vec3::cross(const Vec3 &_rhs) const {
-    return {y * _rhs.z - z * _rhs.y,x * _rhs.z - z * _rhs.x, x * _rhs.x - y * _rhs.x};
+    return {y * _rhs.z - z * _rhs.y,
+        x * _rhs.z - z * _rhs.x,
+        x * _rhs.y - y * _rhs.x};
 }
 
 Vec3 Vec3::normalized() const {

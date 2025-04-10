@@ -22,19 +22,20 @@ Quaternion Quaternion::operator*(const float _rhs) const {
 Vec3 Quaternion::operator*(const Vec3 &_rhs) const {
     // Extract the vector part of the quaternion
     const Vec3 u = this->VectorComponent();
+    const Vec3 &v = _rhs;
 
     // Extract the scalar part of the quaternion
     const float s = this->w;
 
+    auto ucrossv = u.cross(v);
     // Do the math
-    const auto vprime = 2.0f * u.dot(_rhs) * u
-                        + (s*s - u.dot(u)) * _rhs
-                        + 2.0f * s * u.cross(_rhs);
+    auto vprime = v + (ucrossv * s) + u.cross(ucrossv) * 2.0f;
     return vprime;
 }
 
 Quaternion Quaternion::operator*(const Quaternion &_rhs) const {
-    return {w * _rhs.w - xyz.dot(_rhs.xyz),w * _rhs.xyz + xyz * _rhs.w + xyz.cross(_rhs.xyz)};
+    return {w * _rhs.w - xyz.dot(_rhs.xyz),
+        (w * _rhs.xyz) + (xyz * _rhs.w) + xyz.cross(_rhs.xyz)};
 }
 
 std::ostream& operator<<(std::ostream &os, const Quaternion &_q) {

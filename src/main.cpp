@@ -8,6 +8,8 @@
 #include "Viewport.h"
 #include "Simulation/Scene.h"
 
+constexpr float turn = M_PIf32 * 2.f;
+
 int main() {
     std::cout << "Hello, World!" << std::endl;
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -18,23 +20,23 @@ int main() {
     auto ui = nsi::UserInterface(context);
     ui.BuildUI();
 
-    std::cout << context.scene.camera.transform.axes() << std::endl;
+    Vec3 axis = (Vec3::Forward + Vec3::Up).normalized();
+    context.scene.camera.transform.Translate(-Vec3::Forward * 20.f);
 
-    //context.scene.camera.Rotate(Vec3::Up,M_PIf32/2.f);
-    Vec3 fwd2 = (Quaternion{0.7071068f,0,0.7071068f,0} * Vec3::Forward).normalized();
+    Quaternion sRotation = Quaternion::AxisAngle(Vec3::Forward, turn * (.25 * .5) );
 
-    std::cout << context.scene.camera.transform.axes() << std::endl;
     //UP
-    context.scene.AddSphere(Vec3(0,3,0),1.0f, Vec3(0,1,0));
+    auto YSphere =  context.scene.AddSphere(Vec3(0,-3,0),1.0f, Vec3(0,1,0));
     //LEFT
-    context.scene.AddSphere(Vec3(3,0,0),1.0f, Vec3(1,0,0));
+    auto XSphere =  context.scene.AddSphere(Vec3(3,0,0),1.0f, Vec3(1,0,0));
     //Forward
-    context.scene.AddSphere(Vec3(0,0,5),1.0f, Vec3(0,0,1));
+    auto ZSphere = context.scene.AddSphere(Vec3(0,0,3),1.0f, Vec3(0,0,1));
 
 
     context.scene.AddTriangle(Vec3(-1,2,5),Tri(Vec3(-.5f,-.5f,0),Vec3(0,.5f,0),Vec3(.5f,-.5f,0)),Vec3(1,0,0));
 
-
+    Transformation shapes;
+    shapes.Rotate(sRotation);
 
     bool programRunning = true;
     nsi::MouseState mouseState = {0,0,0};
@@ -43,6 +45,8 @@ int main() {
     auto mouseYOld = 0;
     auto mouseXNew = 0;
     auto mouseYNew = 0;
+
+    const float deltaTime = .01f;
 
     while (programRunning) {
         SDL_Event event;
@@ -58,7 +62,13 @@ int main() {
         const auto mouseXdelta = mouseXNew - mouseXOld;
         const auto mouseYdelta = mouseYNew - mouseYOld;
 
+        shapes.Rotate(Quaternion::AxisAngle(Vec3::Forward,deltaTime));
 
+        auto [x, y, z] = shapes.axes();
+        std::cout << x << ", " << y << ", " << z << std::endl;
+        YSphere.shape.transform = (y.normalized()) * 3.f;
+        ZSphere.shape.transform = (z.normalized()) * 3.f;
+        XSphere.shape.transform = x.normalized() * 3.f;
         ui.Draw({mouseXNew, mouseYNew, mouseXdelta, mouseYdelta,mouseState.buttons});
     }
     return 0;

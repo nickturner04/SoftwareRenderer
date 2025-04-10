@@ -36,6 +36,7 @@ void Viewport::Draw(SDL_Renderer *renderer, MouseState mouse_state) {
             const Quaternion q1 = Quaternion::AxisAngle({1,0,0},mouse_state.dx * 0.01f);
             const Quaternion q2 = Quaternion::AxisAngle({0,1,0},mouse_state.dy * 0.01f);
             camera.transform.Rotate(q2);
+            std::cout << camera.transform.axes() << '\n';
             //std::cout << q3 << '\n';
             //std::cout << "Old Direction: " << camera.direction;
             //camera.direction = q3 * camera.direction;

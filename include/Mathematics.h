@@ -16,12 +16,15 @@ public:
     static Vec3 Zero;
     static Vec3 Up;
     static Vec3 Forward;
+    static Vec3 Lerp(const Vec3 &a, const Vec3 &b, float t);
     Vec3 operator * (float _rhs) const;
     Vec3 operator * (const Vec3& _rhs) const;
     Vec3 operator +(const Vec3& _rhs) const;
     Vec3 operator -(const Vec3& _rhs) const;
     Vec3 operator -() const;
     Vec3 &operator += (const Vec3& _rhs);
+
+    bool operator == (const Vec3& _rhs) const;
 
     Vec3 Translate(const Vec3& translation,const Vec3& forward,const Vec3&up = Up) const;
     Vec3 Rotate(const Vec3& _axis, float angle) const;
@@ -111,4 +114,12 @@ struct Tri {
     Vec3 ab() const;
     Vec3 ac() const;
 };
+
+bool TEST_QUATERNION() {
+    Transformation transformation;
+    transformation.Rotate(Quaternion::AxisAngle(Vec3::Forward, M_PIf32 * 2.f * .25f * .5f));
+    auto [x, y, z] = transformation.axes();
+    auto alpha = x.x;
+    auto beta = x.y;
+}
 #endif //MATHEMATICS_H
