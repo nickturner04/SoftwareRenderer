@@ -57,21 +57,18 @@ void RenderScreen::Render(const Scene &scene) const {
 
     auto [xAxis, yAxis, zAxis] = transform.axes();
 
-    Vec3 corner = transform.position + (xAxis * dimensions.x) + (yAxis * dimensions.y) + (zAxis * dimensions.z);
+    Vec3 corner = transform.position - (xAxis * dimensions.x * .5f) - (yAxis * dimensions.y * .5f) + (zAxis * dimensions.z);
 
     for (int i = 0; i < width; ++i) {
         for (int j = 0; j < height; ++j) {
 
             //std::cout << "FORWARD: " << forward << " UP: " << up << " RIGHT: " << right << '\n';
-            const auto sPoint = Vec3(static_cast<float>(i) / static_cast<float>(width),
-                                     static_cast<float>(j) / static_cast<float>(height), 0);
-            const auto fh = dimensions.y * 2;
-            const auto fw = dimensions.x * 2;
-            auto worldPoint = Vec3(-dimensions.x,-dimensions.y,dimensions.z);
-            //auto worldPoint = forward * camera.dimensions.z + right * camera.dimensions.x - up * camera.dimensions.y;
-            //worldPoint += camera.transform.position;
-            worldPoint.x += sPoint.x * fw + (sPoint.x * 0.5f);
-            worldPoint.y += sPoint.y * fh + (sPoint.y * 0.5f);
+            const auto screenX = static_cast<float>(i) / static_cast<float>(width);
+            const auto screenY = static_cast<float>(j) / static_cast<float>(height);
+            const auto fh = dimensions.y;
+            const auto fw = dimensions.x;
+
+            auto worldPoint = corner + xAxis * (fw * screenX)  + yAxis * (fh * screenY ) + zAxis;
             const auto dir = (worldPoint - transform.position).normalized();
 
             if(const auto hit = scene.Trace(transform.position, dir); hit.hit.hit) {
