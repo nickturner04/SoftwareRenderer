@@ -34,10 +34,10 @@ int main() {
     //Forward
     auto ZSphere = context.scene.AddSphere(Vec3(0,0,3),1.0f, Vec3(0,0,1));
 
-    auto CornerSphere = context.scene.AddSphere(Vec3(-6,-4.5,0),1.0f, Vec3(1,1,1));
+    context.scene.AddSphere(Vec3(-6,-4.5,0),1.0f, Vec3(1,1,1));
 
 
-    context.scene.AddTriangle(Vec3(-1,2,5),Tri(Vec3(-.5f,-.5f,0),Vec3(0,.5f,0),Vec3(.5f,-.5f,0)),Vec3(1,0,0));
+    context.scene.AddTriangle(Vec3(0,0,0),Tri(Vec3(2.5,2.5,0),Vec3(-2.5,2.5f,0),Vec3(0,-2.5f,0)),Vec3(1,1,0));
 
     Transformation shapes;
     //shapes.Rotate(sRotation);

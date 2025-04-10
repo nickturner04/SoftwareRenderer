@@ -97,6 +97,8 @@ public:
     void Rotate(const Quaternion& _rotation);
     void Translate(const Vec3& translation);
 
+    void TranslateLocal(const Vec3 &translation);
+
     Vec3 forward();
     Vec3 up();
     Axes axes();
@@ -114,6 +116,7 @@ struct Tri {
     Tri flipped() const;
     Vec3 ab() const;
     Vec3 ac() const;
+    Vec3 ca() const;
     Vec3 normal() const;
 };
 

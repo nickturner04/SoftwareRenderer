@@ -19,6 +19,10 @@ Vec3 Tri::normal() const {
     return ab().cross(ac());
 }
 
+Vec3 Tri::ca() const {
+    return a - c;
+}
+
 
 Tri Tri::flipped() const {
     const auto tmp = *this;

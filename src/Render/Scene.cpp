@@ -83,43 +83,40 @@ Tri Triangle::GetTriWorldSpace() {
 
 
 Hit Triangle::Trace(const Vec3 src, const Vec3 dir) {
-    constexpr float epsilon = std::numeric_limits<float>::epsilon();
-    Tri triangle = tri.Transform(transform, Quaternion());
+    /*
+    Vec3 ab = tri.ab();
+    Vec3 ac = tri.ac();
 
+    Vec3 N = ab.cross(ac);
 
-    Vec3 edge1 = triangle.ab();
-    Vec3 edge2 = triangle.ab();
-    Vec3 ray_cross_e2 = dir * edge2;
+    //Check if ray is parallel to triangle
+    if(std::abs(N.dot(dir)) < std::numeric_limits<float>::epsilon()) {
 
-    float det = edge1.dot(ray_cross_e2);
-    if (det > -epsilon && det < epsilon) {
-        return {false, 0, Vec3(), Vec3()};
     }
 
-    float inv_det = 1.0 / det;
-    Vec3 s = src - triangle.a;
-    float u = inv_det * (s.dot(ray_cross_e2));
+    float D = -N.dot(tri.a);
+    float t = -(N.dot(src) + D) / N.dot(dir);
 
-    if((u > 0 && std::abs(u) > epsilon) || (u > 1 && std::abs(u - 1) > epsilon)) {
-        return {false, 0, Vec3(), Vec3()};
+    //Check if triangle is in front of camera.
+    if(t < 0.f) {
+        return {false, MAXFLOAT, Vec3(), Vec3()};
     }
-
-    Vec3 s_cross_e1 = s * edge1;
-    float v = inv_det * (dir.dot(s_cross_e1));
-
-    if((v < 0 && std::abs(v) > epsilon)||(u + v > 1 && std::abs(u + v - 1) > epsilon)) {
-        return {false, 0, Vec3(), Vec3()};
+    Vec3 pHit = src + t * dir;
+    //Check if intersection is inside the triangle
+    Vec3 ap = pHit - tri.a;
+    if(N.dot(ab.cross(ap)) <0.f) {
+        return {false, MAXFLOAT, Vec3(), Vec3()};
     }
-
-    float t = inv_det * edge2.dot(s_cross_e1);
-
-    if(t > epsilon) {
-        Vec3 point = src + dir * t;
-        Vec3 normal = edge1 * edge2;
-        return {true, t, point, normal};
+    if(N.dot(ac.cross(ap)) <0.f) {
+        return {false, MAXFLOAT, Vec3(), Vec3()};
     }
-    return {false, 0, Vec3(), Vec3()};
-
+    auto ca = tri.ca();
+    auto cp = pHit - tri.c;
+    if(N.dot(ca.cross(cp)) <0.f) {
+        return {false, MAXFLOAT, Vec3(), Vec3()};
+    }
+    return {true, t, N, pHit};
+    */
 }
 
 }

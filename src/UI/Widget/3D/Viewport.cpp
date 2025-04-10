@@ -44,11 +44,11 @@ void Viewport::Draw(SDL_Renderer *renderer, MouseState mouse_state) {
         }
         else if(mouse_state.buttons & SDL_BUTTON(2)) {
             const auto translation = Vec3(static_cast<float>(mouse_state.dx) * 0.01f,static_cast<float>(mouse_state.dy) * 0.01f,0.f);
-            camera.transform.Translate(translation);
+            camera.transform.TranslateLocal(translation);
         }
         else if(mouse_state.buttons & SDL_BUTTON(3)) {
             const auto translation = Vec3(0.f,0.f,static_cast<float>(mouse_state.dy) * 0.01f);
-            camera.transform.Translate(translation);
+            camera.transform.TranslateLocal(translation);
         }
     }
     screen->Render(*scene);

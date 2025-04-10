@@ -9,6 +9,11 @@ void Transformation::Translate(const Vec3 &translation) {
     position += translation;
 }
 
+void Transformation::TranslateLocal(const Vec3 &translation) {
+    auto [x, y, z] = this->axes();
+    position += (x * translation.x + y * translation.y + z * translation.z);
+}
+
 Vec3 Transformation::forward() {
     return rotation * Vec3(0, 0, 1);
 }
