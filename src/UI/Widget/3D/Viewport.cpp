@@ -33,7 +33,7 @@ void Viewport::Draw(SDL_Renderer *renderer, MouseState mouse_state) {
 
     if(IsHovered(mouse_state.x, mouse_state.y)) {
         if(mouse_state.buttons & SDL_BUTTON_LEFT) {
-            const Quaternion q1 = Quaternion::AxisAngle({1,0,0},mouse_state.dy * 0.001f);
+            const Quaternion q1 = Quaternion::AxisAngle({1,0,0},mouse_state.dy * -0.001f);
             const Quaternion q2 = Quaternion::AxisAngle({0,1,0},mouse_state.dx * 0.001f);
             camera.transform.Rotate(q1 * q2);
             //std::cout << camera.transform.axes() << '\n';

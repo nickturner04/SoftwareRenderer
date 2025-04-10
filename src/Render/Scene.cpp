@@ -76,10 +76,15 @@ Triangle::Triangle(Vec3 _transform, const Tri &_tri): tri(_tri) {
     transform = _transform;
 }
 
+Tri Triangle::GetTriWorldSpace() {
+    return {tri.a + transform, tri.b + transform, tri.c + transform};
+}
+
+
 
 Hit Triangle::Trace(const Vec3 src, const Vec3 dir) {
     constexpr float epsilon = std::numeric_limits<float>::epsilon();
-    Tri triangle = tri.Transform(transform);
+    Tri triangle = tri.Transform(transform, Quaternion());
 
 
     Vec3 edge1 = triangle.ab();

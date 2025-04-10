@@ -66,7 +66,7 @@ int main() {
         const auto mouseXdelta = mouseXNew - mouseXOld;
         const auto mouseYdelta = mouseYNew - mouseYOld;
 
-        context.scene.camera.Rotate(Vec3::Up,deltaTime);
+        //context.scene.camera.Rotate(Vec3::Up,deltaTime);
 
         auto [x, y, z] = shapes.axes();
         //std::cout << x << ", " << y << ", " << z << std::endl;

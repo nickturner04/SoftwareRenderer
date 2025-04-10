@@ -40,11 +40,12 @@ public:
 };
 
 class Triangle : public Primitive {
-    public:
+public:
     Triangle() = delete;
     Triangle(Vec3 _transform, const Tri &_tri);
     Hit Trace(Vec3 src, Vec3 dir) override;
-
+    Tri GetTriWorldSpace();
+private:
     Tri tri;
 };
 

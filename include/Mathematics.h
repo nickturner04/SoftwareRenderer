@@ -110,10 +110,11 @@ struct Tri {
     Vec3 c;
 
     void Flip();
-    Tri Transform(const Vec3& _origin) const;
+    Tri Transform(const Vec3 &_origin, const Quaternion &_rotation) const;
     Tri flipped() const;
     Vec3 ab() const;
     Vec3 ac() const;
+    Vec3 normal() const;
 };
 
 bool TEST_QUATERNION();

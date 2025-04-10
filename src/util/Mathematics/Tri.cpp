@@ -4,8 +4,8 @@
 #include "Mathematics.h"
 
 
-Tri Tri::Transform(const Vec3 &_origin) const {
-    return {_origin + a, _origin + b, _origin + c};
+Tri Tri::Transform(const Vec3 &_origin, const Quaternion &_rotation) const {
+    return {_rotation * a + _origin, _rotation * b + _origin, _rotation * c + _origin};
 }
 
 Vec3 Tri::ab() const {
@@ -14,6 +14,11 @@ Vec3 Tri::ab() const {
 Vec3 Tri::ac() const {
     return c - a;
 }
+
+Vec3 Tri::normal() const {
+    return ab().cross(ac());
+}
+
 
 Tri Tri::flipped() const {
     const auto tmp = *this;
