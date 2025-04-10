@@ -20,8 +20,17 @@ Vec3 Transformation::up() {
 Axes Transformation::axes() {
     const Vec3 z = rotation * Vec3(0, 0, 1);
     const Vec3 y = rotation * Vec3(0, 1, 0);
-    const Vec3 x = z.cross(y);
+    const Vec3 x = rotation * Vec3(1, 0, 0);
     return { x,y,z };
+}
+
+bool TEST_QUATERNION() {
+    Transformation transformation;
+    transformation.Rotate(Quaternion::AxisAngle(Vec3::Forward, M_PIf32 * 2.f * .25f * .5f));
+    auto [x, y, z] = transformation.axes();
+    const auto alpha = x.x;
+    const auto beta = x.y;
+    return y == Vec3(-beta,alpha,0.f) && z == Vec3(0,0,1.f);
 }
 
 

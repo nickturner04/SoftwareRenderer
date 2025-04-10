@@ -14,7 +14,7 @@ Vec3 Vec3::Lerp(const Vec3 &a, const Vec3 &b, const float t) {
 }
 
 
-Vec3 Vec3::operator *(float _rhs) const {
+Vec3 Vec3::operator *(const float _rhs) const {
     return {x * _rhs, y * _rhs, z * _rhs};
 }
 
@@ -65,8 +65,8 @@ float Vec3::dot(const Vec3 &_rhs) const{
 
 Vec3 Vec3::cross(const Vec3 &_rhs) const {
     return {y * _rhs.z - z * _rhs.y,
-        x * _rhs.z - z * _rhs.x,
-        x * _rhs.y - y * _rhs.x};
+              z * _rhs.x - x * _rhs.z,
+              x * _rhs.y - y * _rhs.x};
 }
 
 Vec3 Vec3::normalized() const {

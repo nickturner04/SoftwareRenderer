@@ -5,6 +5,7 @@
 #ifndef MATHEMATICS_H
 #define MATHEMATICS_H
 #include <ostream>
+#include <cmath>
 
 #include "Mathematics/Matrix4f.h"
 
@@ -115,11 +116,5 @@ struct Tri {
     Vec3 ac() const;
 };
 
-bool TEST_QUATERNION() {
-    Transformation transformation;
-    transformation.Rotate(Quaternion::AxisAngle(Vec3::Forward, M_PIf32 * 2.f * .25f * .5f));
-    auto [x, y, z] = transformation.axes();
-    auto alpha = x.x;
-    auto beta = x.y;
-}
+bool TEST_QUATERNION();
 #endif //MATHEMATICS_H

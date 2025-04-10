@@ -11,7 +11,9 @@
 constexpr float turn = M_PIf32 * 2.f;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "Testing Quaternions\n" << "Quaternion Test: " << TEST_QUATERNION() << std::endl;
+
+
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
 
@@ -65,7 +67,7 @@ int main() {
         shapes.Rotate(Quaternion::AxisAngle(Vec3::Forward,deltaTime));
 
         auto [x, y, z] = shapes.axes();
-        std::cout << x << ", " << y << ", " << z << std::endl;
+        //std::cout << x << ", " << y << ", " << z << std::endl;
         YSphere.shape.transform = (y.normalized()) * 3.f;
         ZSphere.shape.transform = (z.normalized()) * 3.f;
         XSphere.shape.transform = x.normalized() * 3.f;

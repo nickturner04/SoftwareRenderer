@@ -21,16 +21,11 @@ Quaternion Quaternion::operator*(const float _rhs) const {
 //Author: Laurent Couvidou
 Vec3 Quaternion::operator*(const Vec3 &_rhs) const {
     // Extract the vector part of the quaternion
-    const Vec3 u = this->VectorComponent();
-    const Vec3 &v = _rhs;
+    const Vec3 qv = this->VectorComponent();
 
-    // Extract the scalar part of the quaternion
-    const float s = this->w;
-
-    auto ucrossv = u.cross(v);
-    // Do the math
-    auto vprime = v + (ucrossv * s) + u.cross(ucrossv) * 2.0f;
-    return vprime;
+    const auto uv = qv.cross(_rhs);
+    const auto uuv = qv.cross(uv);
+    return _rhs + ((uv * w) + uuv) * 2.f;
 }
 
 Quaternion Quaternion::operator*(const Quaternion &_rhs) const {
