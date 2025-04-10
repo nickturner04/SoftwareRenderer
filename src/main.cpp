@@ -34,11 +34,13 @@ int main() {
     //Forward
     auto ZSphere = context.scene.AddSphere(Vec3(0,0,3),1.0f, Vec3(0,0,1));
 
+    auto CornerSphere = context.scene.AddSphere(Vec3(12,9,0),1.0f, Vec3(1,1,1));
+
 
     context.scene.AddTriangle(Vec3(-1,2,5),Tri(Vec3(-.5f,-.5f,0),Vec3(0,.5f,0),Vec3(.5f,-.5f,0)),Vec3(1,0,0));
 
     Transformation shapes;
-    shapes.Rotate(sRotation);
+    //shapes.Rotate(sRotation);
 
     bool programRunning = true;
     nsi::MouseState mouseState = {0,0,0};
@@ -64,7 +66,7 @@ int main() {
         const auto mouseXdelta = mouseXNew - mouseXOld;
         const auto mouseYdelta = mouseYNew - mouseYOld;
 
-        shapes.Rotate(Quaternion::AxisAngle(Vec3::Forward,deltaTime));
+        //context.scene.camera.Rotate(Vec3::Forward,deltaTime);
 
         auto [x, y, z] = shapes.axes();
         //std::cout << x << ", " << y << ", " << z << std::endl;

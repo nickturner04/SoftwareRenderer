@@ -20,7 +20,7 @@ Vec3 Transformation::up() {
 Axes Transformation::axes() {
     const Vec3 z = rotation * Vec3(0, 0, 1);
     const Vec3 y = rotation * Vec3(0, 1, 0);
-    const Vec3 x = rotation * Vec3(1, 0, 0);
+    const Vec3 x = y.cross(z);
     return { x,y,z };
 }
 

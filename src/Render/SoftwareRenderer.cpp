@@ -53,26 +53,28 @@ void RenderScreen::Render(const Scene &scene) const {
     auto * pixel = static_cast<Uint32*>(pixelAddress);
     //memset(pixel, 0, this->width * this->height * sizeof(Uint32));
 
-    auto camera = scene.camera;
+    auto [transform, dimensions] = scene.camera;
+
+    auto [xAxis, yAxis, zAxis] = transform.axes();
+
+    Vec3 corner = transform.position + (xAxis * dimensions.x) + (yAxis * dimensions.y) + (zAxis * dimensions.z);
 
     for (int i = 0; i < width; ++i) {
         for (int j = 0; j < height; ++j) {
-            auto forward = camera.transform.forward();
-            auto up = camera.transform.up();
-            auto right = forward.cross(up);
 
             //std::cout << "FORWARD: " << forward << " UP: " << up << " RIGHT: " << right << '\n';
             const auto sPoint = Vec3(static_cast<float>(i) / static_cast<float>(width),
                                      static_cast<float>(j) / static_cast<float>(height), 0);
-            const auto fh = camera.dimensions.y * 2;
-            const auto fw = camera.dimensions.x * 2;
-            //auto worldPoint = Vec3(-camera.dimensions.x,-camera.dimensions.y,camera.dimensions.z);
-            auto worldPoint = forward * camera.dimensions.z + right * camera.dimensions.x - up * camera.dimensions.y;
+            const auto fh = dimensions.y * 2;
+            const auto fw = dimensions.x * 2;
+            auto worldPoint = Vec3(-dimensions.x,-dimensions.y,dimensions.z);
+            //auto worldPoint = forward * camera.dimensions.z + right * camera.dimensions.x - up * camera.dimensions.y;
+            //worldPoint += camera.transform.position;
             worldPoint.x += sPoint.x * fw + (sPoint.x * 0.5f);
             worldPoint.y += sPoint.y * fh + (sPoint.y * 0.5f);
-            const auto dir = (worldPoint - camera.transform.position).normalized();
+            const auto dir = (worldPoint - transform.position).normalized();
 
-            if(const auto hit = scene.Trace(camera.transform.position, dir); hit.hit.hit) {
+            if(const auto hit = scene.Trace(transform.position, dir); hit.hit.hit) {
                 const auto colour = scene.Shade(hit);
                 *(pixel + (j * width + i)) = ColourFormat(colour * (dir.dot(hit.hit.normal)));
             }
