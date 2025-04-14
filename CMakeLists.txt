@@ -31,8 +31,8 @@ add_executable(NSR src/main.cpp
         src/util/Mathematics/Axes.cpp
         include/Interface/Commands.h
         src/Commands.cpp
-        include/Render/TriangleMesh.h
-        src/Render/TriangleMesh.cpp
+        include/Render/PolygonMesh.h
+        src/Render/PolygonMesh.cpp
         include/Render/Primitives.h
         src/Render/Primitives.cpp)
 target_link_libraries(NSR SDL2::SDL2 SDL2_image::SDL2_image-static SDL2_ttf::SDL2_ttf-static)

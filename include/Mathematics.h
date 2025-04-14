@@ -44,6 +44,11 @@ inline Vec3 operator*(const float _lhs, const Vec3 & _rhs) {
     return {_lhs * _rhs.x, _lhs * _rhs.y, _lhs * _rhs.z};
 }
 
+struct Vec2 {
+    float x = 0.0f;
+    float y = 0.0f;
+};
+
 std::ostream& operator<<(std::ostream &os, const Vec3 &_q);
 
 class Quaternion {
