@@ -81,17 +81,22 @@ Tri Triangle::GetTriWorldSpace() {
 }
 
 
-
+//Uses the Moller-Trumbore method to raytrace the triangle
+    //From Scratchapixel
 Hit Triangle::Trace(const Vec3 src, const Vec3 dir) {
-    /*
-    Vec3 ab = tri.ab();
-    Vec3 ac = tri.ac();
 
-    Vec3 N = ab.cross(ac);
+    constexpr float epsilon = std::numeric_limits<float>::epsilon();
+
+    //Find Normal
+    const Vec3 ab = tri.ab();
+    const Vec3 ac = tri.ac();
+    const Vec3 N = ab.cross(ac);
+
+    //Step 1: Finding Hit Point
 
     //Check if ray is parallel to triangle
-    if(std::abs(N.dot(dir)) < std::numeric_limits<float>::epsilon()) {
-
+    if(std::abs(N.dot(dir)) < epsilon) {
+        return {false, MAXFLOAT, N, Vec3()};
     }
 
     float D = -N.dot(tri.a);
@@ -101,22 +106,33 @@ Hit Triangle::Trace(const Vec3 src, const Vec3 dir) {
     if(t < 0.f) {
         return {false, MAXFLOAT, Vec3(), Vec3()};
     }
-    Vec3 pHit = src + t * dir;
-    //Check if intersection is inside the triangle
-    Vec3 ap = pHit - tri.a;
-    if(N.dot(ab.cross(ap)) <0.f) {
+    const Vec3 pHit = src + t * dir;
+
+
+
+    //Step 2: Inside-Outside Test
+    const Vec3 ap = pHit - tri.a;
+    auto Ne = ab.cross(ap);
+    if(N.dot(Ne) <0.f) {
         return {false, MAXFLOAT, Vec3(), Vec3()};
     }
-    if(N.dot(ac.cross(ap)) <0.f) {
+
+    const Vec3 cb = tri.c - tri.b;
+    const Vec3 bp = pHit - tri.b;
+    Ne = cb.cross(bp);
+    if(N.dot(Ne) <0.f) {
         return {false, MAXFLOAT, Vec3(), Vec3()};
     }
-    auto ca = tri.ca();
-    auto cp = pHit - tri.c;
-    if(N.dot(ca.cross(cp)) <0.f) {
+
+    const auto ca = tri.ca();
+    const auto cp = pHit - tri.c;
+    Ne = ca.cross(cp);
+    if(N.dot(Ne) <0.f) {
         return {false, MAXFLOAT, Vec3(), Vec3()};
     }
     return {true, t, N, pHit};
-    */
+
+
 }
 
 }
