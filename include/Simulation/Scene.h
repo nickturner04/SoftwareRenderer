@@ -8,45 +8,14 @@
 #include <vector>
 
 #include "Mathematics.h"
+#include "Render/Primitives.h"
 
 namespace nsr {
 
 
-
-struct Hit {
-    int hit = 0;
-    float distance = std::numeric_limits<float>::max();
-    Vec3 normal;
-    Vec3 point;
-};
-
 struct ObjectHit {
     int id = 0;
     Hit hit;
-};
-
-class Primitive {
-public:
-    virtual Hit Trace(Vec3 src, Vec3 dir) = 0;
-    Vec3 transform = {0.f,0.f,0.f};
-};
-
-class Sphere : public Primitive {
-public:
-    Sphere() = default;
-    Sphere(Vec3 _transform, float _radius);
-    float radius = 1.0f;
-    Hit Trace(Vec3 src, Vec3 dir) override;
-};
-
-class Triangle : public Primitive {
-public:
-    Triangle() = delete;
-    Triangle(Vec3 _transform, const Tri &_tri);
-    Hit Trace(Vec3 src, Vec3 dir) override;
-    Tri GetTriWorldSpace();
-private:
-    Tri tri;
 };
 
 class Material {
