@@ -6,31 +6,28 @@ namespace nsr {
 
 
 Sphere::Sphere(const Vec3 _transform, const float _radius) {
-    transform = _transform;
+    transform.position = _transform;
     radius = _radius;
 }
 
 
 Hit Sphere::Trace(Vec3 src, Vec3 dir) {
-    const auto l = this->transform - src;
+    const auto l = this->transform.position - src;
+    const auto r = this->radius * transform.scale;
     auto tca = l.dot(dir);
 
     if(auto d = std::sqrt(l.dot(l) - tca * tca); d < this->radius) {
         auto thc = std::sqrt(radius * radius - d * d);
         auto dist = tca - thc;
         auto hitPoint = src + dir * dist;
-        const auto normal = (hitPoint - this->transform).normalized();
+        const auto normal = (hitPoint - this->transform.position).normalized();
         return {true, dist, normal, hitPoint};
     }
     return {false, MAXFLOAT, Vec3(), Vec3()};
 }
 
 Triangle::Triangle(Vec3 _transform, const Tri &_tri): tri(_tri) {
-    transform = _transform;
-}
-
-Tri Triangle::GetTriWorldSpace() {
-    return {tri.a + transform, tri.b + transform, tri.c + transform};
+    transform.position = _transform;
 }
 
 Hit MollerTrumbore(const Vec3 src, const Vec3 dir, const Tri &tri) {

@@ -15,12 +15,14 @@ PolygonMesh::PolygonMesh(const WavefrontObject& obj): nFaces(obj.numFaces()) {
     }
 }
 
-Hit PolygonMesh::Trace(Vec3 src, Vec3 dir) {
+Hit PolygonMesh::Trace(const Vec3 src, const Vec3 dir) {
+    Hit out = {false,MAXFLOAT};
     for (int i = 0; i < nFaces; ++i) {
         const int index = i * 3;
-        Tri tri = {vertices[indices[index]],vertices[indices[index] + 1],vertices[indices[index] + 2]};
+        const Tri tri = {vertices[indices[index]],vertices[indices[index] + 1],vertices[indices[index] + 2]};
+        if (auto hit = MollerTrumbore(src, dir, tri); hit.hit && hit.distance < out.distance) {out = hit;}
     }
-    return {false};
+    return out;
 }
 
 

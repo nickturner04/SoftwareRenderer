@@ -7,6 +7,9 @@
 Tri Tri::Transform(const Vec3 &_origin, const Quaternion &_rotation) const {
     return {_rotation * a + _origin, _rotation * b + _origin, _rotation * c + _origin};
 }
+Tri Tri::Transform(const Transformation &_transformation) const {
+    return {_transformation.rotation * a * _transformation.scale + _transformation.position , _transformation.rotation * b * _transformation.scale + _transformation.position, _transformation.rotation * c * _transformation.scale + _transformation.position};
+}
 
 Vec3 Tri::ab() const {
     return b - a;

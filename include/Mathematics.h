@@ -104,6 +104,7 @@ class Transformation {
 public:
     Vec3 position;
     Quaternion rotation;
+    Vec3 scale = {1.f,1.f,1.f};
 
     void Rotate(const Quaternion& _rotation);
     void Translate(const Vec3& translation);
@@ -124,6 +125,7 @@ struct Tri {
 
     void Flip();
     Tri Transform(const Vec3 &_origin, const Quaternion &_rotation) const;
+    Tri Transform(const Transformation &_transformation) const;
     Tri flipped() const;
     Vec3 ab() const;
     Vec3 ac() const;

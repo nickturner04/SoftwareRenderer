@@ -64,7 +64,7 @@ void WavefrontObject::ParseObjLine(const std::string &line) {
 
 
 WavefrontObject::WavefrontObject(const std::string&) {
-    if(auto file = std::ifstream("resources/meshes/monkey.obj"); file.is_open()) {
+    if(auto file = std::ifstream("resources/meshes/cube.obj"); file.is_open()) {
         std::string line;
         while (getline(file,line)) {
             ParseObjLine(line);

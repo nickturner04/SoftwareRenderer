@@ -4,6 +4,9 @@
 
 #include "../../include/Simulation/Scene.h"
 #include <cmath>
+
+#include "Render/PolygonMesh.h"
+
 namespace nsr {
 
 Vec3 Scene::Shade(const ObjectHit &hit) const {
@@ -37,6 +40,17 @@ void Scene::AddTriangle(Vec3 position, const Tri &tri, Vec3 color) {
     objects.emplace_back(*primitives[this->index],this->index);
     index++;
 }
+
+SceneObject &Scene::AddMesh(const Vec3 position, const WavefrontObject& object) {
+    const auto mesh = new PolygonMesh(object);
+    mesh->transform.position = position;
+    primitives.push_back(mesh);
+    materials.emplace_back(Vec3(1,1,1));
+    objects.emplace_back(*primitives[this->index],this->index);
+    index++;
+    return objects[this->index - 1];
+}
+
 
 
 ObjectHit Scene::Trace(const Vec3 src, const Vec3 dir) const {

@@ -21,8 +21,6 @@ int main() {
 
     auto monkey = WavefrontObject("resources/meshes/monkey.obj");
 
-    auto monkeyMesh = nsr::PolygonMesh(monkey);
-
     auto context = ProgramContext();
     auto ui = nsi::UserInterface(context);
     ui.BuildUI();
@@ -33,16 +31,18 @@ int main() {
     Quaternion sRotation = Quaternion::AxisAngle(Vec3::Forward, turn * (.25 * .5) );
 
     //UP
-    auto YSphere =  context.scene.AddSphere(Vec3(0,-3,0),1.0f, Vec3(0,1,0));
+    //auto YSphere =  context.scene.AddSphere(Vec3(0,-3,0),1.0f, Vec3(0,1,0));
     //LEFT
-    auto XSphere =  context.scene.AddSphere(Vec3(3,0,0),1.0f, Vec3(1,0,0));
+    //auto XSphere =  context.scene.AddSphere(Vec3(3,0,0),1.0f, Vec3(1,0,0));
     //Forward
-    auto ZSphere = context.scene.AddSphere(Vec3(0,0,3),1.0f, Vec3(0,0,1));
+    //auto ZSphere = context.scene.AddSphere(Vec3(0,0,3),1.0f, Vec3(0,0,1));
 
-    context.scene.AddSphere(Vec3(-6,-4.5,0),1.0f, Vec3(1,1,1));
+    //context.scene.AddSphere(Vec3(-6,-4.5,0),1.0f, Vec3(1,1,1));
 
 
-    context.scene.AddTriangle(Vec3(0,0,0),Tri(Vec3(2.5,2.5,0),Vec3(-2.5,2.5f,0),Vec3(0,-2.5f,0)),Vec3(1,1,0));
+    //context.scene.AddTriangle(Vec3(0,0,0),Tri(Vec3(2.5,2.5,0),Vec3(-2.5,2.5f,0),Vec3(0,-2.5f,0)),Vec3(1,1,0));
+
+    context.scene.AddMesh(Vec3(0,0,0),monkey);
 
     Transformation shapes;
     //shapes.Rotate(sRotation);
@@ -75,9 +75,9 @@ int main() {
 
         auto [x, y, z] = shapes.axes();
         //std::cout << x << ", " << y << ", " << z << std::endl;
-        YSphere.shape.transform = (y.normalized()) * 3.f;
-        ZSphere.shape.transform = (z.normalized()) * 3.f;
-        XSphere.shape.transform = x.normalized() * 3.f;
+        //YSphere.shape.transform = (y.normalized()) * 3.f;
+        //ZSphere.shape.transform = (z.normalized()) * 3.f;
+        //XSphere.shape.transform = x.normalized() * 3.f;
         ui.Draw({mouseXNew, mouseYNew, mouseXdelta, mouseYdelta,mouseState.buttons});
     }
     return 0;

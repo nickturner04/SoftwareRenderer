@@ -18,10 +18,10 @@ namespace nsr {
     public:
         virtual ~Primitive() = default;
         virtual Hit Trace(Vec3 src, Vec3 dir) = 0;
-        Vec3 transform = {0.f,0.f,0.f};
+        Transformation transform;
     };
 
-    class Sphere : public Primitive {
+    class Sphere final : public Primitive {
     public:
         Sphere() = default;
         Sphere(Vec3 _transform, float _radius);
@@ -29,12 +29,11 @@ namespace nsr {
         Hit Trace(Vec3 src, Vec3 dir) override;
     };
 
-    class Triangle : public Primitive {
+    class Triangle final : public Primitive {
     public:
         Triangle() = delete;
         Triangle(Vec3 _transform, const Tri &_tri);
         Hit Trace(Vec3 src, Vec3 dir) override;
-        Tri GetTriWorldSpace();
     private:
         Tri tri;
     };

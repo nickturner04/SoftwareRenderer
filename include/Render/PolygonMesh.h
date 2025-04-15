@@ -12,7 +12,7 @@
 
 namespace nsr {
 
-class PolygonMesh : public Primitive{
+class PolygonMesh final : public Primitive{
     uint32_t nFaces;
     std::vector<Vec3> vertices;
     std::vector<uint32_t> indices;
