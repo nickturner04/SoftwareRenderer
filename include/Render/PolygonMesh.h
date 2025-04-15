@@ -28,7 +28,7 @@ public:
     ~TriangleMesh() = default;
     Hit Trace(Vec3 src, Vec3 dir) override;
 
-    const uint32_t nfaces;
+    uint32_t nFaces;
     const std::unique_ptr<uint32_t[]> faceIndex;
     const std::unique_ptr<uint32_t[]> vertexIndex;
     const std::unique_ptr<Vec3[]> verts;

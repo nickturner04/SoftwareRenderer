@@ -21,5 +21,17 @@ PolygonMesh::PolygonMesh(uint32_t nfaces, int *fi, int *vi, Vec3 *p):
 
 }
 
+TriangleMesh::TriangleMesh(uint32_t nfaces, int *fi, int *vi, Vec3 *v, Vec3 *n, Vec3 *st) {
+    uint32_t k = 0, maxVertIndex = 0;
+    for (int i = 0; i < nfaces; ++i) {
+        nFaces += fi[i];
+    }
+}
+
+Hit TriangleMesh::Trace(Vec3 src, Vec3 dir) {
+    return {false};
+}
+
+
 
 }

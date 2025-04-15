@@ -6,10 +6,10 @@
 #include <cmath>
 namespace nsr {
 
-    Vec3 Scene::Shade(const ObjectHit &hit) const {
-        const auto matIndex = objects[hit.id].materialIndex;
-        return materials[matIndex].Shade(hit.hit);
-    }
+Vec3 Scene::Shade(const ObjectHit &hit) const {
+    const auto matIndex = objects[hit.id].materialIndex;
+    return materials[matIndex].Shade(hit.hit);
+}
 
 Hit SceneObject::Trace(const Vec3 src, const Vec3 dir) const {
     return shape.Trace(src, dir);

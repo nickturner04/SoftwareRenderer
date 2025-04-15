@@ -7,4 +7,10 @@ namespace nsr{
         const Quaternion rotation = Quaternion::AxisAngle(axis, angle);
         transform.Rotate(rotation);
     }
+
+    void Camera::Reset() {
+        transform.position = Vec3(0, 0, 0);
+        transform.rotation = Quaternion();
+    }
+
 }

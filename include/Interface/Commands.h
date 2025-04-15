@@ -4,8 +4,6 @@
 
 #ifndef COMMANDS_H
 #define COMMANDS_H
-#include <any>
-#include <functional>
 #include <unordered_map>
 
 #include "ProgramContext.h"
@@ -29,16 +27,34 @@ struct Parameter {
     ParamValue value;
 };
 
+class Command {
+public:
+    virtual ~Command() = default;
+    std::vector<Parameter> m_Parameters;
+    uint32_t m_minParameters;
+
+    virtual void Execute(ProgramContext& context, std::vector<Parameter> parameters) = 0;
+
+private:
+    [[nodiscard]] bool CheckParameters(const std::vector<Parameter>& parameters) const;
+};
+
+void SplitString(const std::string& s, char delim, std::vector<std::string>& elems);
+
 class Commands {
-
-
 public:
     Commands();
     ProgramContext context;
+    std::unordered_map<std::string, Command&> parameters;
 
+    void ExecuteCommand(std::string command) {
 
-    static void CmdsResetCamera(ProgramContext& context,std::vector<Parameter> parameters);
+    }
+
+    static void ResetCamera(ProgramContext& context);
 };
+
+
 
 } // nsi
 

@@ -41,6 +41,7 @@ public:
     Vec3 dimensions = {12.f,9.f,20.f};
 
     void Rotate(const Vec3 &axis, float angle);
+    void Reset();
 };
 
 class Scene {
