@@ -24,6 +24,8 @@ public:
     Vec3 operator -(const Vec3& _rhs) const;
     Vec3 operator -() const;
     Vec3 &operator += (const Vec3& _rhs);
+    Vec3 &operator *= (const Vec3& _rhs);
+    Vec3 &operator *= (float _rhs);
 
     bool operator == (const Vec3& _rhs) const;
 
@@ -108,6 +110,8 @@ public:
 
     void Rotate(const Quaternion& _rotation);
     void Translate(const Vec3& translation);
+    void Scale(const Vec3& _scale);
+    void Scale(float _scale);
 
     void TranslateLocal(const Vec3 &translation);
 

@@ -8,6 +8,13 @@ void Transformation::Rotate(const Quaternion& _rotation) {
 void Transformation::Translate(const Vec3 &translation) {
     position += translation;
 }
+void Transformation::Scale(const Vec3 &_scale) {
+    scale *= _scale;
+}
+void Transformation::Scale(const float _scale) {
+    scale *= _scale;
+}
+
 
 void Transformation::TranslateLocal(const Vec3 &translation) {
     auto [x, y, z] = this->axes();

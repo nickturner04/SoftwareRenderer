@@ -33,12 +33,13 @@ SceneObject& Scene::AddSphere(const Vec3 position = {0.0f,0.f,0.f}, const float 
     return objects[index - 1];
 }
 
-void Scene::AddTriangle(Vec3 position, const Tri &tri, Vec3 color) {
+SceneObject& Scene::AddTriangle(Vec3 position, const Tri &tri, Vec3 color) {
     const auto triangle = new Triangle(position, tri);
     primitives.push_back(triangle);
     materials.emplace_back(color);
     objects.emplace_back(*primitives[this->index],this->index);
     index++;
+    return objects[index - 1];
 }
 
 SceneObject &Scene::AddMesh(const Vec3 position, const WavefrontObject& object) {

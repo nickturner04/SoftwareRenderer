@@ -13,10 +13,10 @@ Sphere::Sphere(const Vec3 _transform, const float _radius) {
 
 Hit Sphere::Trace(Vec3 src, Vec3 dir) {
     const auto l = this->transform.position - src;
-    const auto r = this->radius * transform.scale;
+    const auto r = this->radius * transform.scale.x;
     auto tca = l.dot(dir);
 
-    if(auto d = std::sqrt(l.dot(l) - tca * tca); d < this->radius) {
+    if(auto d = std::sqrt(l.dot(l) - tca * tca); d < r) {
         auto thc = std::sqrt(radius * radius - d * d);
         auto dist = tca - thc;
         auto hitPoint = src + dir * dist;

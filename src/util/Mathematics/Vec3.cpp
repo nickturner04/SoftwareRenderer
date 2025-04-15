@@ -42,6 +42,20 @@ Vec3 &Vec3::operator+=(const Vec3 &_rhs) {
     return *this;
 }
 
+Vec3 &Vec3::operator*=(const Vec3 &_rhs) {
+    x *= _rhs.x;
+    y *= _rhs.y;
+    z *= _rhs.z;
+    return *this;
+}
+Vec3 &Vec3::operator*=(const float _rhs) {
+    x *= _rhs;
+    y *= _rhs;
+    z *= _rhs;
+    return *this;
+}
+
+
 bool Vec3::operator==(const Vec3 &_rhs) const {
     return x == _rhs.x && y == _rhs.y && z == _rhs.z;
 }

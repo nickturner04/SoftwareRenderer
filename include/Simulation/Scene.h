@@ -48,9 +48,9 @@ public:
 class Scene {
 public:
     SceneObject& AddSphere(Vec3 position, float radius, Vec3 color);
-    void AddTriangle(Vec3 position,const Tri& tri, Vec3 color);
-
+    SceneObject& AddTriangle(Vec3 position,const Tri& tri, Vec3 color);
     SceneObject &AddMesh(Vec3 position, const WavefrontObject& object);
+
     ObjectHit Trace(Vec3 src, Vec3 dir) const;
     Vec3 Shade(const ObjectHit &hit) const;
     Camera camera;
