@@ -34,5 +34,7 @@ add_executable(NSR src/main.cpp
         include/Render/PolygonMesh.h
         src/Render/PolygonMesh.cpp
         include/Render/Primitives.h
-        src/Render/Primitives.cpp)
+        src/Render/Primitives.cpp
+        include/Storage/WavefrontObject.h
+        src/util/Storage/WavefrontObject.cpp)
 target_link_libraries(NSR SDL2::SDL2 SDL2_image::SDL2_image-static SDL2_ttf::SDL2_ttf-static)
