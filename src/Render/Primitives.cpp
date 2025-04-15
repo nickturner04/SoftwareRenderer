@@ -33,6 +33,57 @@ Tri Triangle::GetTriWorldSpace() {
     return {tri.a + transform, tri.b + transform, tri.c + transform};
 }
 
+Hit MollerTrumbore(const Vec3 src, const Vec3 dir, const Tri &tri) {
+
+    constexpr float epsilon = std::numeric_limits<float>::epsilon();
+
+    //Find Normal
+    const Vec3 ab = tri.ab();
+    const Vec3 ac = tri.ac();
+    const Vec3 N = ab.cross(ac);
+
+    //Step 1: Finding Hit Point
+
+    //Check if ray is parallel to triangle
+    if(std::abs(N.dot(dir)) < epsilon) {
+        return {false, MAXFLOAT, N, Vec3()};
+    }
+
+    float D = -N.dot(tri.a);
+    float t = -(N.dot(src) + D) / N.dot(dir);
+
+    //Check if triangle is in front of camera.
+    if(t < 0.f) {
+        return {false, MAXFLOAT, Vec3(), Vec3()};
+    }
+    const Vec3 pHit = src + t * dir;
+
+
+
+    //Step 2: Inside-Outside Test
+    const Vec3 ap = pHit - tri.a;
+    auto Ne = ab.cross(ap);
+    if(N.dot(Ne) <0.f) {
+        return {false, MAXFLOAT, Vec3(), Vec3()};
+    }
+
+    const Vec3 cb = tri.c - tri.b;
+    const Vec3 bp = pHit - tri.b;
+    Ne = cb.cross(bp);
+    if(N.dot(Ne) <0.f) {
+        return {false, MAXFLOAT, Vec3(), Vec3()};
+    }
+
+    const auto ca = tri.ca();
+    const auto cp = pHit - tri.c;
+    Ne = ca.cross(cp);
+    if(N.dot(Ne) <0.f) {
+        return {false, MAXFLOAT, Vec3(), Vec3()};
+    }
+    return {true, t, N, pHit};
+}
+
+
 
 //Uses the Moller-Trumbore method to raytrace the triangle
     //From Scratchapixel
@@ -84,7 +135,5 @@ Hit Triangle::Trace(const Vec3 src, const Vec3 dir) {
         return {false, MAXFLOAT, Vec3(), Vec3()};
     }
     return {true, t, N, pHit};
-
-
 }
 }

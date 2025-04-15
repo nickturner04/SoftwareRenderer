@@ -8,20 +8,21 @@
 #include <memory>
 
 #include "Render/Primitives.h"
+#include "Storage/WavefrontObject.h"
 
 namespace nsr {
 
-class PolygonMesh{
+class PolygonMesh : public Primitive{
+    uint32_t nFaces;
+    std::vector<Vec3> vertices;
+    std::vector<uint32_t> indices;
 public:
-    PolygonMesh(uint32_t nfaces, int* fi, int *vi, Vec3 *p);
-    ~PolygonMesh() = default;
-    uint32_t numFaces;
-    std::unique_ptr<uint32_t[]> faceIndex;
-    std::unique_ptr<uint32_t[]> vertexIndex;
-    std::unique_ptr<Vec3[]> P;
+    explicit PolygonMesh(const WavefrontObject& obj);
+    ~PolygonMesh() override = default;
+    Hit Trace(Vec3 src, Vec3 dir) override;
 };
 
-class TriangleMesh : public Primitive {
+class TriangleMesh final : public Primitive {
 public:
 
     TriangleMesh(uint32_t nfaces, int* fi, int *vi, Vec3 *v, Vec3 *n, Vec3 *st);

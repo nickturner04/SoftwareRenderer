@@ -75,3 +75,9 @@ WavefrontObject::WavefrontObject(const std::string&) {
         std::cerr << "Unable to open file" << std::endl;
     }
 }
+
+int3 WavefrontObject::getFaceVerts(const size_t faceIndex) const {
+    const auto[a, b, c] = faceIndices[faceIndex];
+    return {a.vertex,b.vertex,c.vertex};
+}
+

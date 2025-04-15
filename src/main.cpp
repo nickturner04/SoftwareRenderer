@@ -6,6 +6,7 @@
 #include "ProgramContext.h"
 #include "UserInterface.h"
 #include "Viewport.h"
+#include "Render/PolygonMesh.h"
 #include "Simulation/Scene.h"
 #include "Storage/WavefrontObject.h"
 
@@ -19,6 +20,8 @@ int main() {
     IMG_Init(IMG_INIT_PNG);
 
     auto monkey = WavefrontObject("resources/meshes/monkey.obj");
+
+    auto monkeyMesh = nsr::PolygonMesh(monkey);
 
     auto context = ProgramContext();
     auto ui = nsi::UserInterface(context);

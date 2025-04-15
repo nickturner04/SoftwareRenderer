@@ -4,22 +4,26 @@
 #include "Render/PolygonMesh.h"
 namespace nsr {
 
-PolygonMesh::PolygonMesh(uint32_t nfaces, int *fi, int *vi, Vec3 *p):
-    numFaces(nfaces), faceIndex(nullptr), vertexIndex(nullptr), P(nullptr) {
-    uint32_t vertArraySize = 0;
-    uint32_t maxVertexIndex = 0, index = 0;
-    for (uint32_t i = 0; i < numFaces; ++i) {
-        vertArraySize += fi[i];
-        for (uint32_t j = 0; j < fi[i]; ++j) {
-            if(vi[index + j] > maxVertexIndex) {
-                maxVertexIndex = vi[index + j];
-            }
-        }
-        index += fi[i];
+PolygonMesh::PolygonMesh(const WavefrontObject& obj): nFaces(obj.numFaces()) {
+    this->vertices = obj.getVertices();
+    this->indices.reserve(nFaces * 3);
+    for (int i = 0; i < nFaces; ++i) {
+        auto [a,b,c] = obj.getFaceVerts(i);
+        indices.push_back(a);
+        indices.push_back(b);
+        indices.push_back(c);
     }
-    maxVertexIndex += 1;
-
 }
+
+Hit PolygonMesh::Trace(Vec3 src, Vec3 dir) {
+    for (int i = 0; i < nFaces; ++i) {
+        const int index = i * 3;
+        Tri tri = {vertices[indices[index]],vertices[indices[index] + 1],vertices[indices[index] + 2]};
+    }
+    return {false};
+}
+
+
 
 TriangleMesh::TriangleMesh(uint32_t nfaces, int *fi, int *vi, Vec3 *v, Vec3 *n, Vec3 *st) {
     uint32_t k = 0, maxVertIndex = 0;

@@ -16,6 +16,7 @@ namespace nsr {
     };
     class Primitive {
     public:
+        virtual ~Primitive() = default;
         virtual Hit Trace(Vec3 src, Vec3 dir) = 0;
         Vec3 transform = {0.f,0.f,0.f};
     };
@@ -37,5 +38,7 @@ namespace nsr {
     private:
         Tri tri;
     };
+
+    Hit MollerTrumbore(Vec3 src, Vec3 dir, const Tri &tri);
 }
 #endif //PRIMITIVES_H

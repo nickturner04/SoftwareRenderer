@@ -24,14 +24,18 @@ class WavefrontObject {
     std::vector<Face> faceIndices;
 
     void ParseObjLine(const std::string &line);
+    static Vec3 ParseObjVector(std::string_view line);
+    static Face ParseObjFace(std::string_view line);
+    static vIndices ParseObjInt3(std::string_view line);
 public:
     explicit WavefrontObject(const std::string& path);
     ~WavefrontObject() = default;
 
     int WriteGeometry(std::string path);
-    static Vec3 ParseObjVector(std::string_view line);
-    static Face ParseObjFace(std::string_view line);
-    static vIndices ParseObjInt3(std::string_view line);
+    [[nodiscard]] size_t numFaces() const { return faceIndices.size(); }
+    [[nodiscard]] size_t numVertices() const { return vertices.size(); }
+    [[nodiscard]] std::vector<Vec3> const& getVertices() const { return vertices; }
+    [[nodiscard]] int3 getFaceVerts(size_t faceIndex) const;
 };
 
 

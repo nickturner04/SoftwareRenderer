@@ -49,6 +49,12 @@ struct Vec2 {
     float y = 0.0f;
 };
 
+struct int3 {
+    int x = 0;
+    int y = 0;
+    int z = 0;
+};
+
 std::ostream& operator<<(std::ostream &os, const Vec3 &_q);
 
 class Quaternion {
