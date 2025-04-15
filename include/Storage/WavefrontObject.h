@@ -4,27 +4,34 @@
 
 #ifndef WAVEFRONTOBJECT_H
 #define WAVEFRONTOBJECT_H
-#include <span>
 #include <string>
 #include <vector>
 #include "Mathematics.h"
 
 
 class WavefrontObject {
-private:
+    struct vIndices {
+        int vertex;
+        int texCoord;
+        int normal;
+    };
     struct Face {
-        int vi1, vi2,vi3;
+        vIndices a,b,c;
     };
     std::vector<Vec3> vertices;
-    std::vector<int> vertexIndices;
+    std::vector<Vec3> normals;
+    std::vector<Vec3> texCoords;
     std::vector<Face> faceIndices;
+
+    void ParseObjLine(const std::string &line);
 public:
-    explicit WavefrontObject(std::string path);
+    explicit WavefrontObject(const std::string& path);
     ~WavefrontObject() = default;
 
     int WriteGeometry(std::string path);
-    static Vec3 ParseObjVector(std::span<std::string> line);
-    static Face ParseObjFace(std::span<std::string> line);
+    static Vec3 ParseObjVector(std::string_view line);
+    static Face ParseObjFace(std::string_view line);
+    static vIndices ParseObjInt3(std::string_view line);
 };
 
 

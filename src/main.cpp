@@ -7,6 +7,7 @@
 #include "UserInterface.h"
 #include "Viewport.h"
 #include "Simulation/Scene.h"
+#include "Storage/WavefrontObject.h"
 
 constexpr float turn = M_PIf32 * 2.f;
 
@@ -17,6 +18,7 @@ int main() {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
 
+    auto monkey = WavefrontObject("resources/meshes/monkey.obj");
 
     auto context = ProgramContext();
     auto ui = nsi::UserInterface(context);
