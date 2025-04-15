@@ -88,9 +88,11 @@ Hit Triangle::Trace(const Vec3 src, const Vec3 dir) {
 
     constexpr float epsilon = std::numeric_limits<float>::epsilon();
 
+    const auto tri1 = this->tri.Transform(this->transform);
+
     //Find Normal
-    const Vec3 ab = tri.ab();
-    const Vec3 ac = tri.ac();
+    const Vec3 ab = tri1.ab();
+    const Vec3 ac = tri1.ac();
     const Vec3 N = ab.cross(ac);
 
     //Step 1: Finding Hit Point
@@ -100,7 +102,7 @@ Hit Triangle::Trace(const Vec3 src, const Vec3 dir) {
         return {false, MAXFLOAT, N, Vec3()};
     }
 
-    float D = -N.dot(tri.a);
+    float D = -N.dot(tri1.a);
     float t = -(N.dot(src) + D) / N.dot(dir);
 
     //Check if triangle is in front of camera.
@@ -112,21 +114,21 @@ Hit Triangle::Trace(const Vec3 src, const Vec3 dir) {
 
 
     //Step 2: Inside-Outside Test
-    const Vec3 ap = pHit - tri.a;
+    const Vec3 ap = pHit - tri1.a;
     auto Ne = ab.cross(ap);
     if(N.dot(Ne) <0.f) {
         return {false, MAXFLOAT, Vec3(), Vec3()};
     }
 
-    const Vec3 cb = tri.c - tri.b;
-    const Vec3 bp = pHit - tri.b;
+    const Vec3 cb = tri1.c - tri1.b;
+    const Vec3 bp = pHit - tri1.b;
     Ne = cb.cross(bp);
     if(N.dot(Ne) <0.f) {
         return {false, MAXFLOAT, Vec3(), Vec3()};
     }
 
-    const auto ca = tri.ca();
-    const auto cp = pHit - tri.c;
+    const auto ca = tri1.ca();
+    const auto cp = pHit - tri1.c;
     Ne = ca.cross(cp);
     if(N.dot(Ne) <0.f) {
         return {false, MAXFLOAT, Vec3(), Vec3()};

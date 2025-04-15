@@ -41,7 +41,7 @@ int main() {
 
 
     auto triangle = context.scene.AddTriangle(Vec3(0,0,0),Tri(Vec3(2.5,2.5,0),Vec3(-2.5,2.5f,0),Vec3(0,-2.5f,0)),Vec3(1,1,0));
-    triangle.shape.transform.Rotate(sRotation);
+    triangle.shape.transform.Scale(.5f);
 
     //context.scene.AddMesh(Vec3(0,0,0),monkey);
 
