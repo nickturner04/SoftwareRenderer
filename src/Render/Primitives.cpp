@@ -95,6 +95,11 @@ Hit Triangle::Trace(const Vec3 src, const Vec3 dir) {
     const Vec3 ac = tri1.ac();
     const Vec3 N = ab.cross(ac);
 
+    //Backface Culling
+    if(dir.dot(N) > 0) {
+        return {false};
+    }
+
     //Step 1: Finding Hit Point
 
     //Check if ray is parallel to triangle

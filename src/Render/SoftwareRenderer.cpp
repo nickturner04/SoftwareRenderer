@@ -73,7 +73,7 @@ void RenderScreen::Render(const Scene &scene) const {
 
             if(const auto hit = scene.Trace(transform.position, dir); hit.hit.hit) {
                 const auto colour = scene.Shade(hit);
-                *(pixel + (j * width + i)) = ColourFormat(colour * (zAxis.dot(hit.hit.normal.normalized())));
+                *(pixel + (j * width + i)) = ColourFormat(colour * (1.f - zAxis.dot(hit.hit.normal.normalized())));
             }
             else {
                 *(pixel + (j * width + i)) = 0xFF000000;
