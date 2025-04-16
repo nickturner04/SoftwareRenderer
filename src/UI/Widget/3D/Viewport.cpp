@@ -50,13 +50,8 @@ void Viewport::Draw(SDL_Renderer *renderer, MouseState mouse_state) {
             const auto translation = Vec3(0.f,0.f,static_cast<float>(mouse_state.dy) * 0.01f);
             camera.transform.TranslateLocal(translation);
         }
-        dirty = true;
     }
-    if(dirty) {
-        screen->Render(*scene);
-        dirty = false;
-    }
-
+    screen->Render(*scene);
     screen->CopyTexture(renderer, &rect);
 }
 

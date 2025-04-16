@@ -44,10 +44,11 @@ void SplitString(const std::string& s, char delim, std::vector<std::string>& ele
 class Commands {
 public:
     Commands();
+    ~Commands();
     ProgramContext context;
-    std::unordered_map<std::string, Command&> parameters;
+    std::unordered_map<std::string, Command*> commands;
 
-    void ExecuteCommand(std::string command) {
+    void ExecuteCommand(ProgramContext& context ,std::string_view command) {
 
     }
 

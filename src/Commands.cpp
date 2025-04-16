@@ -7,6 +7,13 @@ Commands::Commands() {
 
 }
 
+Commands::~Commands() {
+    for (const auto& pair: commands) {
+        delete pair.second;
+    }
+}
+
+
 void SplitString(const std::string &s, char delim, std::vector<std::string> &elems) {
     s.find(delim);
 }

@@ -14,6 +14,10 @@ class SoftwareRenderer {
 
 };
 
+enum class RenderMode {
+    FULL,POINT_LIST,BOUNDING_VOLUME
+};
+
 class RenderScreen {
 public:
     RenderScreen(SDL_Renderer * renderer, int _width, int _height);

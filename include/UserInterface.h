@@ -45,7 +45,9 @@ public:
 };
 
 struct Button {
+    Button(SDL_Texture* texture, std::string command);
     SDL_Texture* texture;
+    std::string command;
 };
 struct Toolbar final : Container {
     void Draw(SDL_Renderer * renderer, MouseState mouse_state) override;

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <ostream>
+#include <utility>
 #include <SDL_image.h>
 //
 // Created by s5614562 on 05/03/25.
@@ -79,9 +80,15 @@ void Toolbar::Draw(SDL_Renderer *renderer, const MouseState mouse_state) {
     }
 }
 
+Button::Button(SDL_Texture *texture, std::string command) {
+    this->texture = texture;
+    this->command = std::move(command);
+}
+
+
 void Toolbar::AddButton(IconRegistry& ir, const std::string &iconPath) {
     const auto texture = ir.GetIcon(iconPath);
-    buttons.push_back({texture});
+    buttons.emplace_back(texture,"setCamera 0 0 -20");
 }
 
 

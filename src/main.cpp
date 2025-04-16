@@ -19,16 +19,16 @@ int main() {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
 
-    auto monkey = WavefrontObject("resources/meshes/cube.obj");
+    auto monkey = WavefrontObject("resources/meshes/monkey.obj");
 
-    auto context = ProgramContext();
+    auto context = nsi::ProgramContext();
     auto ui = nsi::UserInterface(context);
     ui.BuildUI();
 
     Vec3 axis = (Vec3::Forward + Vec3::Up).normalized();
     context.scene.camera.transform.Translate(-Vec3::Forward * 20.f);
 
-    Quaternion sRotation = Quaternion::AxisAngle(Vec3::Forward, turn * (.25 * .5) );
+    Quaternion sRotation = Quaternion::AxisAngle(Vec3(1,0,0), turn * .5);
 
     //UP
     //auto YSphere =  context.scene.AddSphere(Vec3(0,-3,0),1.0f, Vec3(0,1,0));
@@ -57,6 +57,8 @@ int main() {
     cube.AddFace(1,2,3);
 
     auto mesh = context.scene.AddMesh(Vec3(0,0,0),monkey);
+    mesh.shape.transform.Scale(2.f);
+    mesh.shape.transform.Rotate(sRotation);
     context.scene.AddPointMesh(Vec3(0,0,0),monkey);
 
     Transformation shapes;
@@ -86,7 +88,6 @@ int main() {
         const auto mouseXdelta = mouseXNew - mouseXOld;
         const auto mouseYdelta = mouseYNew - mouseYOld;
 
-        //context.scene.camera.Rotate(Vec3::Up,deltaTime);
 
         auto [x, y, z] = shapes.axes();
         //std::cout << x << ", " << y << ", " << z << std::endl;

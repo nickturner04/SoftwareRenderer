@@ -20,7 +20,8 @@ Hit PolygonMesh::Trace(const Vec3 src, const Vec3 dir) {
     for (int i = 0; i < nFaces; ++i) {
         const int index = i * 3;
         const Tri tri = {vertices[indices[index]],vertices[indices[index + 1]],vertices[indices[index + 2]]};
-        if (const auto hit = MollerTrumbore(src, dir, tri); hit.hit && hit.distance < out.distance) {out = hit;}
+
+        if (const auto hit = MollerTrumbore(src, dir, tri.Transform(this->transform)); hit.hit && hit.distance < out.distance) {out = hit;}
     }
     return out;
 }

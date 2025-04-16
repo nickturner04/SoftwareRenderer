@@ -3,8 +3,9 @@
 //
 
 #include "ProgramContext.h"
+namespace nsi {
 
-ProgramContext::ProgramContext() {
+ProgramContext::ProgramContext(){
     window = SDL_CreateWindow("Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN);
     windowWidth = 800;
     windowHeight = 600;
@@ -21,4 +22,7 @@ ProgramContext::~ProgramContext() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
 }
+}
+
+
 

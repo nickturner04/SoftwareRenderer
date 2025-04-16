@@ -4,22 +4,29 @@
 
 #ifndef PROGRAMCONTEXT_H
 #define PROGRAMCONTEXT_H
+#include <memory>
 #include <SDL_render.h>
 #include <SDL_video.h>
 
 #include "Simulation/Scene.h"
 
+namespace nsi {
 
 class ProgramContext {
 public:
     ProgramContext();
     ProgramContext(int width, int height);
     ~ProgramContext();
+
     SDL_Window *window;
     SDL_Renderer *renderer;
     int windowWidth, windowHeight;
     nsr::Scene scene;
 };
+
+}
+
+
 
 
 
