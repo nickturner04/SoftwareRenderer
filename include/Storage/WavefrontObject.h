@@ -10,6 +10,7 @@
 
 
 class WavefrontObject {
+public:
     struct vIndices {
         int vertex;
         int texCoord;
@@ -18,6 +19,7 @@ class WavefrontObject {
     struct Face {
         vIndices a,b,c;
     };
+private:
     std::vector<Vec3> vertices;
     std::vector<Vec3> normals;
     std::vector<Vec3> texCoords;
@@ -33,7 +35,7 @@ public:
     ~WavefrontObject() = default;
 
     void AddVertex(Vec3 vert,Vec3 texCoord,Vec3 normal);
-    void AddFace(const Face &face);
+    void AddFace(int a, int b, int c);
 
     int WriteGeometryToFile(std::string path);
     [[nodiscard]] size_t numFaces() const { return faceIndices.size(); }

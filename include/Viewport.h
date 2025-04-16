@@ -11,6 +11,7 @@
 namespace nsi {
 
 class Viewport : public Container{
+    bool dirty = true;
     public:
     Viewport(int x, int y, int w, int h,int x_internal, int y_internal,ProgramContext & context);
     ~Viewport();

@@ -19,7 +19,7 @@ int main() {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
 
-    auto monkey = WavefrontObject("resources/meshes/monkey.obj");
+    auto monkey = WavefrontObject("resources/meshes/cube.obj");
 
     auto context = ProgramContext();
     auto ui = nsi::UserInterface(context);
@@ -40,16 +40,23 @@ int main() {
     //context.scene.AddSphere(Vec3(-6,-4.5,0),1.0f, Vec3(1,1,1));
 
 
-    auto triangle = context.scene.AddTriangle(Vec3(0,0,0),Tri(Vec3(2.5,2.5,0),Vec3(-2.5,2.5f,0),Vec3(0,-2.5f,0)),Vec3(1,1,0));
-    triangle.shape.transform.Scale(.5f);
+    //auto triangle = context.scene.AddTriangle(Vec3(0,0,0),Tri(Vec3(2.5,2.5,0),Vec3(-2.5,2.5f,0),Vec3(0,-2.5f,0)),Vec3(1,1,0));
+    //triangle.shape.transform.Scale(.5f);
 
     auto cube = WavefrontObject();
+    cube.AddVertex(Vec3(-1,-1,-1),Vec3(1,1,1),Vec3(1,1,1));
+    cube.AddVertex(Vec3(-1,-1,1),Vec3(1,1,1),Vec3(1,1,1));
+    cube.AddVertex(Vec3(-1,1,-1),Vec3(1,1,1),Vec3(1,1,1));
+    cube.AddVertex(Vec3(-1,1,1),Vec3(1,1,1),Vec3(1,1,1));
+    cube.AddVertex(Vec3(1,-1,-1),Vec3(1,1,1),Vec3(1,1,1));
+    cube.AddVertex(Vec3(1,-1,1),Vec3(1,1,1),Vec3(1,1,1));
     cube.AddVertex(Vec3(1,1,-1),Vec3(1,1,1),Vec3(1,1,1));
-    cube.AddVertex(Vec3(1,-1,1),Vec3(1,1,1),Vec3(1,1,1));
     cube.AddVertex(Vec3(1,1,1),Vec3(1,1,1),Vec3(1,1,1));
-    cube.AddVertex(Vec3(1,-1,1),Vec3(1,1,1),Vec3(1,1,1));
 
-    context.scene.AddMesh(Vec3(0,0,0),monkey);
+    cube.AddFace(2,1,0);
+    cube.AddFace(1,2,3);
+
+    auto mesh = context.scene.AddMesh(Vec3(0,0,0),monkey);
     context.scene.AddPointMesh(Vec3(0,0,0),monkey);
 
     Transformation shapes;
