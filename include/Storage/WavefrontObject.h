@@ -29,9 +29,13 @@ class WavefrontObject {
     static vIndices ParseObjInt3(std::string_view line);
 public:
     explicit WavefrontObject(const std::string& path);
+    WavefrontObject() = default;
     ~WavefrontObject() = default;
 
-    int WriteGeometry(std::string path);
+    void AddVertex(Vec3 vert,Vec3 texCoord,Vec3 normal);
+    void AddFace(const Face &face);
+
+    int WriteGeometryToFile(std::string path);
     [[nodiscard]] size_t numFaces() const { return faceIndices.size(); }
     [[nodiscard]] size_t numVertices() const { return vertices.size(); }
     [[nodiscard]] std::vector<Vec3> const& getVertices() const { return vertices; }

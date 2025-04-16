@@ -39,5 +39,6 @@ namespace nsr {
     };
 
     Hit MollerTrumbore(Vec3 src, Vec3 dir, const Tri &tri);
+    Hit SphereTrace(Vec3 src, Vec3 dir, Vec3 position, float radius);
 }
 #endif //PRIMITIVES_H

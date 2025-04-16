@@ -62,6 +62,17 @@ void WavefrontObject::ParseObjLine(const std::string &line) {
 
 }
 
+void WavefrontObject::AddFace(const Face &face) {
+    faceIndices.push_back(face);
+}
+
+void WavefrontObject::AddVertex(const Vec3 vert, const Vec3 texCoord, const Vec3 normal) {
+    vertices.push_back(vert);
+    normals.push_back(normal);
+    texCoords.push_back(texCoord);
+}
+
+
 
 WavefrontObject::WavefrontObject(const std::string&) {
     if(auto file = std::ifstream("resources/meshes/cube.obj"); file.is_open()) {
@@ -75,6 +86,7 @@ WavefrontObject::WavefrontObject(const std::string&) {
         std::cerr << "Unable to open file" << std::endl;
     }
 }
+
 
 int3 WavefrontObject::getFaceVerts(const size_t faceIndex) const {
     const auto[a, b, c] = faceIndices[faceIndex];

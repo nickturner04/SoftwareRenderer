@@ -135,4 +135,19 @@ Hit Triangle::Trace(const Vec3 src, const Vec3 dir) {
     }
     return {true, t, N, pHit};
 }
+
+Hit SphereTrace(Vec3 src, Vec3 dir, Vec3 position, const float radius) {
+    const auto l = position - src;
+    auto tca = l.dot(dir);
+
+    if(auto d = std::sqrt(l.dot(l) - tca * tca); d < radius) {
+        auto thc = std::sqrt(radius * radius - d * d);
+        auto dist = tca - thc;
+        auto hitPoint = src + dir * dist;
+        const auto normal = (hitPoint - position).normalized();
+        return {true, dist, normal, hitPoint};
+    }
+    return {false, MAXFLOAT, Vec3(), Vec3()};
+}
+
 }
