@@ -28,7 +28,7 @@ public:
     explicit PolygonMesh(const WavefrontObject& obj);
     ~PolygonMesh() override = default;
     Hit Trace(Vec3 src, Vec3 dir) override;
-    void GetSurfaceData(Hit &hit, size_t triangleIndex);
+    void GetSurfaceData(Hit &hit, size_t triangleIndex) const;
 };
 
 class TriangleMesh final : public Primitive {

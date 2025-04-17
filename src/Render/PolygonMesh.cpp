@@ -35,17 +35,23 @@ Hit PolygonMesh::Trace(const Vec3 src, const Vec3 dir) {
     return out;
 }
 
-void PolygonMesh::GetSurfaceData(Hit &hit, const size_t triangleIndex) {
+void PolygonMesh::GetSurfaceData(Hit &hit, const size_t triangleIndex) const {
     const size_t index = triangleIndex * 3;
-    Vec2 texCoord;
+
+    const auto [u, v] = hit.texCoord;
 
     //Calculate Texture Coordinates
     const Vec2 &st0 = texCoords[ indices[index]];
     const Vec2 &st1 = texCoords[ indices[index + 1]];
     const Vec2 &st2 = texCoords[ indices[index + 2]];
-    texCoord = (1 - hit.texCoord.x - hit.texCoord.y) * st0 + hit.texCoord.x * st1 + hit.texCoord.y * st2;
+    hit.texCoord = (1 - u - v) * st0 + u * st1 + v * st2;
 
     //Calculate Vertex Normal
+    const Vec3 &n0 = normals[ indices[index]];
+    const Vec3 &n1 = normals[ indices[index + 1]];
+    const Vec3 &n2 = normals[ indices[index + 2]];
+
+    hit.normal = (1 - u - v) * n0 + u * n1 + v * n2;
 
 }
 
