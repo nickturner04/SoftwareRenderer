@@ -13,6 +13,7 @@ namespace nsr {
         float distance = std::numeric_limits<float>::max();
         Vec3 normal;
         Vec3 point;
+        Vec2 texCoord;
     };
     class Primitive {
     public:

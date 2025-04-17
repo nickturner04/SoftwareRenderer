@@ -55,11 +55,12 @@ Hit MollerTrumbore(const Vec3 src, const Vec3 dir, const Tri &tri) {
     }
     const Vec3 pHit = src + t * dir;
 
-
+    float area = N.magnitude() / 2.f;
 
     //Step 2: Inside-Outside Test
     const Vec3 ap = pHit - tri.a;
     auto Ne = ab.cross(ap);
+    const auto u = (Ne.magnitude() / 2) / area;
     if(N.dot(Ne) <0.f) {
         return {false, MAXFLOAT, Vec3(), Vec3()};
     }
@@ -67,6 +68,7 @@ Hit MollerTrumbore(const Vec3 src, const Vec3 dir, const Tri &tri) {
     const Vec3 cb = tri.c - tri.b;
     const Vec3 bp = pHit - tri.b;
     Ne = cb.cross(bp);
+    const auto v = (Ne.magnitude() / 2) / area;
     if(N.dot(Ne) <0.f) {
         return {false, MAXFLOAT, Vec3(), Vec3()};
     }
@@ -77,7 +79,7 @@ Hit MollerTrumbore(const Vec3 src, const Vec3 dir, const Tri &tri) {
     if(N.dot(Ne) <0.f) {
         return {false, MAXFLOAT, Vec3(), Vec3()};
     }
-    return {true, t, N, pHit};
+    return {true, t, N, pHit,{u,v}};
 }
 
 
