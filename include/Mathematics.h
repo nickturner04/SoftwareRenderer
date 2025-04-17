@@ -20,6 +20,7 @@ public:
     static Vec3 Lerp(const Vec3 &a, const Vec3 &b, float t);
     Vec3 operator * (float _rhs) const;
     Vec3 operator * (const Vec3& _rhs) const;
+    Vec3 operator / (float _rhs) const;
     Vec3 operator +(const Vec3& _rhs) const;
     Vec3 operator -(const Vec3& _rhs) const;
     Vec3 operator -() const;

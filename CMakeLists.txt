@@ -39,5 +39,6 @@ add_executable(NSR src/main.cpp
         src/util/Storage/WavefrontObject.cpp
         include/Render/PointMesh.h
         src/Render/PointMesh.cpp
-        src/util/Mathematics/Vector/Vec2.cpp)
+        src/util/Mathematics/Vector/Vec2.cpp
+        include/Render/TriangleMesh.h)
 target_link_libraries(NSR SDL2::SDL2 SDL2_image::SDL2_image-static SDL2_ttf::SDL2_ttf-static)

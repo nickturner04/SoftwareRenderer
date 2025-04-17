@@ -26,7 +26,7 @@ int main() {
     ui.BuildUI();
 
     Vec3 axis = (Vec3::Forward + Vec3::Up).normalized();
-    context.scene.camera.transform.Translate(-Vec3::Forward * 20.f);
+    context.scene.camera.transform.Translate(-Vec3::Forward * 10.f);
 
     Quaternion sRotation = Quaternion::AxisAngle(Vec3(1,0,0), turn * .5);
 
@@ -57,9 +57,9 @@ int main() {
     cube.AddFace(1,2,3);
 
     auto mesh = context.scene.AddMesh(Vec3(0,0,0),monkey);
-    mesh.shape.transform.Scale(2.f);
-    mesh.shape.transform.Rotate(sRotation);
-    context.scene.AddPointMesh(Vec3(0,0,0),monkey);
+    //mesh.shape.transform.Scale(2.f);
+    //mesh.shape.transform.Rotate(sRotation);
+    //context.scene.AddPointMesh(Vec3(0,0,0),monkey);
 
     Transformation shapes;
     //shapes.Rotate(sRotation);

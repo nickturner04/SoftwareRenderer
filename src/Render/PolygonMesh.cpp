@@ -35,6 +35,7 @@ Hit PolygonMesh::Trace(const Vec3 src, const Vec3 dir) {
     return out;
 }
 
+    //Calculate smooth normals and texture coordinates using barycentric coordinates stored in the hit uvs
 void PolygonMesh::GetSurfaceData(Hit &hit, const size_t triangleIndex) const {
     const size_t index = triangleIndex * 3;
 
@@ -44,29 +45,15 @@ void PolygonMesh::GetSurfaceData(Hit &hit, const size_t triangleIndex) const {
     const Vec2 &st0 = texCoords[ indices[index]];
     const Vec2 &st1 = texCoords[ indices[index + 1]];
     const Vec2 &st2 = texCoords[ indices[index + 2]];
-    hit.texCoord = (1 - u - v) * st0 + u * st1 + v * st2;
+    hit.texCoord = (1 - u - v) * st2 + u * st0 + v * st1;
 
     //Calculate Vertex Normal
     const Vec3 &n0 = normals[ indices[index]];
     const Vec3 &n1 = normals[ indices[index + 1]];
     const Vec3 &n2 = normals[ indices[index + 2]];
 
-    hit.normal = (1 - u - v) * n0 + u * n1 + v * n2;
+    hit.normal = (1 - u - v) * n1 + u * n2 + v * n0;
 
-}
-
-
-
-
-TriangleMesh::TriangleMesh(uint32_t nfaces, int *fi, int *vi, Vec3 *v, Vec3 *n, Vec3 *st) {
-    uint32_t k = 0, maxVertIndex = 0;
-    for (int i = 0; i < nfaces; ++i) {
-        nFaces += fi[i];
-    }
-}
-
-Hit TriangleMesh::Trace(Vec3 src, Vec3 dir) {
-    return {false};
 }
 
 

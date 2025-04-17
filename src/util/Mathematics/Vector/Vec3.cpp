@@ -22,6 +22,9 @@ Vec3 Vec3::operator*(const Vec3 &_rhs) const {
     return {x * _rhs.x, y * _rhs.y, z * _rhs.z};
 }
 
+Vec3 Vec3::operator/(const float _rhs) const {
+    return {x / _rhs, y / _rhs, z / _rhs};
+}
 
 Vec3 Vec3::operator+(const Vec3 &_rhs) const {
     return {x + _rhs.x, y + _rhs.y, z + _rhs.z};
