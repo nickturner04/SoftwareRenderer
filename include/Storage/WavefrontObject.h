@@ -36,6 +36,7 @@ public:
     ~WavefrontObject() = default;
 
     void AddVertex(Vec3 vert, Vec2 texCoord, Vec3 normal);
+    void AddVertex(float x, float y, float z);
     void AddFace(int a, int b, int c);
 
     int WriteGeometryToFile(std::string path);

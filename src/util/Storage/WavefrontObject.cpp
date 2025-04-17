@@ -80,6 +80,13 @@ void WavefrontObject::AddVertex(const Vec3 vert, const Vec2 texCoord, const Vec3
     texCoords.push_back(texCoord);
 }
 
+void WavefrontObject::AddVertex(float x, float y, float z) {
+    vertices.emplace_back(x,y,z);
+    normals.emplace_back();
+    texCoords.emplace_back();
+}
+
+
 
 
 WavefrontObject::WavefrontObject(const std::string& path) {

@@ -19,7 +19,7 @@ int main() {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
 
-    auto monkey = WavefrontObject("resources/meshes/monkey.obj");
+    auto monkey = WavefrontObject("resources/meshes/sphere.obj");
 
     auto context = nsi::ProgramContext();
     auto ui = nsi::UserInterface(context);
@@ -44,14 +44,14 @@ int main() {
     //triangle.shape.transform.Scale(.5f);
 
     auto cube = WavefrontObject();
-    cube.AddVertex(Vec3(-1,-1,-1),Vec3(1,1,1),Vec3(1,1,1));
-    cube.AddVertex(Vec3(-1,-1,1),Vec3(1,1,1),Vec3(1,1,1));
-    cube.AddVertex(Vec3(-1,1,-1),Vec3(1,1,1),Vec3(1,1,1));
-    cube.AddVertex(Vec3(-1,1,1),Vec3(1,1,1),Vec3(1,1,1));
-    cube.AddVertex(Vec3(1,-1,-1),Vec3(1,1,1),Vec3(1,1,1));
-    cube.AddVertex(Vec3(1,-1,1),Vec3(1,1,1),Vec3(1,1,1));
-    cube.AddVertex(Vec3(1,1,-1),Vec3(1,1,1),Vec3(1,1,1));
-    cube.AddVertex(Vec3(1,1,1),Vec3(1,1,1),Vec3(1,1,1));
+    cube.AddVertex(-1,-1,-1);
+    cube.AddVertex(-1,-1,1);
+    cube.AddVertex(-1,1,-1);
+    cube.AddVertex(-1,1,1);
+    cube.AddVertex(1,-1,-1);
+    cube.AddVertex(1,-1,1);
+    cube.AddVertex(1,1,-1);
+    cube.AddVertex(1,1,1);
 
     cube.AddFace(2,1,0);
     cube.AddFace(1,2,3);
