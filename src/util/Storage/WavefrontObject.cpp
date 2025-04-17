@@ -16,6 +16,14 @@ Vec3 WavefrontObject::ParseObjVector(const std::string_view line) {
     return vector;
 }
 
+Vec2 WavefrontObject::ParseObjVector2d(const std::string_view line) {
+    const size_t space = line.find_first_of(' ');
+    const auto v1 = line.substr(0, space);
+    const auto v2  = line.substr(space + 1, line.back());
+    const Vec2 vector = {std::stof(v1.data()), std::stof(v2.data())};
+    return vector;
+}
+
 WavefrontObject::vIndices WavefrontObject::ParseObjInt3(const std::string_view line) {
     const size_t slash1 = line.find_first_of('/');
     const size_t slash2 = line.find_first_of('/', slash1 + 1);
@@ -47,7 +55,7 @@ void WavefrontObject::ParseObjLine(const std::string &line) {
                     this->normals.push_back(ParseObjVector(std::string_view(line).substr(3)));
                     break;
                 case 't':
-                    this->texCoords.push_back(ParseObjVector(std::string_view(line).substr(3)));
+                    this->texCoords.push_back(ParseObjVector2d(std::string_view(line).substr(3)));
                     break;
                 default:
                     break;
@@ -66,7 +74,7 @@ void WavefrontObject::AddFace(const int a, const int b, const int c) {
     faceIndices.push_back(Face(vIndices{a, a, a},vIndices{b,b,b},vIndices{c,c,c}));
 }
 
-void WavefrontObject::AddVertex(const Vec3 vert, const Vec3 texCoord, const Vec3 normal) {
+void WavefrontObject::AddVertex(const Vec3 vert, const Vec2 texCoord, const Vec3 normal) {
     vertices.push_back(vert);
     normals.push_back(normal);
     texCoords.push_back(texCoord);

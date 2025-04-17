@@ -6,6 +6,8 @@ namespace nsr {
 
 PolygonMesh::PolygonMesh(const WavefrontObject& obj): nFaces(obj.numFaces()) {
     this->vertices = obj.getVertices();
+    this->normals = obj.getNormals();
+    this->texCoords = obj.getTexCoords();
     this->indices.reserve(nFaces * 3);
     for (int i = 0; i < nFaces; ++i) {
         auto [a,b,c] = obj.getFaceVerts(i);

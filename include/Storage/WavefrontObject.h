@@ -22,11 +22,12 @@ public:
 private:
     std::vector<Vec3> vertices;
     std::vector<Vec3> normals;
-    std::vector<Vec3> texCoords;
+    std::vector<Vec2> texCoords;
     std::vector<Face> faceIndices;
 
     void ParseObjLine(const std::string &line);
     static Vec3 ParseObjVector(std::string_view line);
+    static Vec2 ParseObjVector2d(std::string_view line);
     static Face ParseObjFace(std::string_view line);
     static vIndices ParseObjInt3(std::string_view line);
 public:
@@ -34,13 +35,15 @@ public:
     WavefrontObject() = default;
     ~WavefrontObject() = default;
 
-    void AddVertex(Vec3 vert,Vec3 texCoord,Vec3 normal);
+    void AddVertex(Vec3 vert, Vec2 texCoord, Vec3 normal);
     void AddFace(int a, int b, int c);
 
     int WriteGeometryToFile(std::string path);
     [[nodiscard]] size_t numFaces() const { return faceIndices.size(); }
     [[nodiscard]] size_t numVertices() const { return vertices.size(); }
     [[nodiscard]] std::vector<Vec3> const& getVertices() const { return vertices; }
+    [[nodiscard]] std::vector<Vec3> const& getNormals() const { return normals; }
+    [[nodiscard]] std::vector<Vec2> const& getTexCoords() const { return texCoords; }
     [[nodiscard]] int3 getFaceVerts(size_t faceIndex) const;
 };
 

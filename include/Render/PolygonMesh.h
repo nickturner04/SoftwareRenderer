@@ -12,9 +12,17 @@
 
 namespace nsr {
 
+struct VertexData {
+    Vec3 position;
+    Vec3 normal;
+    Vec2 texCoord;
+};
+
 class PolygonMesh final : public Primitive{
     uint32_t nFaces;
     std::vector<Vec3> vertices;
+    std::vector<Vec3> normals;
+    std::vector<Vec2> texCoords;
     std::vector<uint32_t> indices;
 public:
     explicit PolygonMesh(const WavefrontObject& obj);
