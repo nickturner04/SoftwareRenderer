@@ -49,6 +49,8 @@ inline Vec3 operator*(const float _lhs, const Vec3 & _rhs) {
 struct Vec2 {
     float x = 0.0f;
     float y = 0.0f;
+
+    Vec2 operator + (const Vec2& _rhs) const;
 };
 
 inline Vec2 operator* (const float _lhs, const Vec2 & _rhs) {

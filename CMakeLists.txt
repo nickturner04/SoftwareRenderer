@@ -20,7 +20,7 @@ add_executable(NSR src/main.cpp
         include/Simulation/Scene.h
         src/Simulation/Scene.cpp
         src/Render/SoftwareRenderer.cpp
-        src/util/Mathematics/Vec3.cpp
+        src/util/Mathematics/Vector/Vec3.cpp
         include/Mathematics.h
         src/util/Mathematics/Tri.cpp
         src/util/Mathematics/Quaternion.cpp
@@ -38,5 +38,6 @@ add_executable(NSR src/main.cpp
         include/Storage/WavefrontObject.h
         src/util/Storage/WavefrontObject.cpp
         include/Render/PointMesh.h
-        src/Render/PointMesh.cpp)
+        src/Render/PointMesh.cpp
+        src/util/Mathematics/Vector/Vec2.cpp)
 target_link_libraries(NSR SDL2::SDL2 SDL2_image::SDL2_image-static SDL2_ttf::SDL2_ttf-static)
