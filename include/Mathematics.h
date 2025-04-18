@@ -52,6 +52,7 @@ struct Vec2 {
     float y = 0.0f;
 
     Vec2 operator + (const Vec2& _rhs) const;
+    bool operator == (const Vec2& _rhs) const;
 };
 
 inline Vec2 operator* (const float _lhs, const Vec2 & _rhs) {

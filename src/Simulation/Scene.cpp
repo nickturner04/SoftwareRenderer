@@ -7,6 +7,7 @@
 
 #include "Render/PointMesh.h"
 #include "Render/PolygonMesh.h"
+#include "Render/TriangleMesh.h"
 
 namespace nsr {
 
@@ -52,6 +53,17 @@ SceneObject &Scene::AddMesh(const Vec3 position, const WavefrontObject& object) 
     index++;
     return objects[this->index - 1];
 }
+
+SceneObject &Scene::AddMesh(const Vec3 position, const IMeshData &data) {
+    const auto mesh = new TriangleMesh(data);
+    mesh->transform.position = position;
+    primitives.push_back(mesh);
+    materials.emplace_back(Vec3(1,1,1));
+    objects.emplace_back(*primitives[this->index],this->index);
+    index++;
+    return objects[this->index - 1];
+}
+
 
 SceneObject &Scene::AddPointMesh(const Vec3 position, const WavefrontObject &object) {
     const auto mesh = new PointMesh(object);

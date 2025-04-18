@@ -5,7 +5,6 @@
 
 #include "ProgramContext.h"
 #include "UserInterface.h"
-#include "Viewport.h"
 #include "Render/PolygonMesh.h"
 #include "Simulation/Scene.h"
 #include "Storage/WavefrontObject.h"
@@ -59,7 +58,6 @@ int main() {
     auto mesh = context.scene.AddMesh(Vec3(0,0,0),monkey);
     //mesh.shape.transform.Scale(2.f);
     //mesh.shape.transform.Rotate(sRotation);
-    //context.scene.AddPointMesh(Vec3(0,0,0),monkey);
 
     Transformation shapes;
     //shapes.Rotate(sRotation);

@@ -15,16 +15,14 @@
 
 namespace nsr {
     class TriangleMesh final : public Primitive {
-    public:
-
-        TriangleMesh() = default;
-        explicit TriangleMesh(IMeshData &mesh);
-        ~TriangleMesh() override = default;
-        Hit Trace(Vec3 src, Vec3 dir) override;
-
         uint32_t nFaces = 0;
         std::vector<VertexData> vertexBuffer;
         std::vector<uint32_t> indexBuffer;
+    public:
+        TriangleMesh() = default;
+        explicit TriangleMesh(const IMeshData &mesh);
+        ~TriangleMesh() override = default;
+        Hit Trace(Vec3 src, Vec3 dir) override;
     };
 }
 

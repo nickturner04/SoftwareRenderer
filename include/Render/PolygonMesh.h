@@ -2,8 +2,8 @@
 // Created by s5614562 on 14/04/25.
 //
 
-#ifndef TRIANGLEMESH_H
-#define TRIANGLEMESH_H
+#ifndef POLYGONMESH_H
+#define POLYGONMESH_H
 #include <cstdint>
 #include <memory>
 
@@ -27,4 +27,4 @@ public:
 
 } // nsr
 
-#endif //TRIANGLEMESH_H
+#endif //POLYGONMESH_H

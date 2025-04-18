@@ -108,3 +108,12 @@ int3 WavefrontObject::getFaceVerts(const size_t faceIndex) const {
     return {a.vertex,b.vertex,c.vertex};
 }
 
+std::array<VertexData, 3> WavefrontObject::getTri(const size_t i) const {
+    const auto& [a,b,c] = this->faceIndices[i];
+    const VertexData v0 = {vertices[a.vertex],normals[a.normal],texCoords[a.texCoord]};
+    const VertexData v1 = {vertices[b.vertex],normals[b.normal],texCoords[b.texCoord]};
+    const VertexData v2 = {vertices[c.vertex],normals[c.normal],texCoords[c.texCoord]};
+    return {v0,v1,v2};
+}
+
+

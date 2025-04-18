@@ -6,10 +6,12 @@
 #define WAVEFRONTOBJECT_H
 #include <string>
 #include <vector>
+
+#include "IMeshData.h"
 #include "Mathematics.h"
 
 
-class WavefrontObject {
+class WavefrontObject : public IMeshData{
 public:
     struct vIndices {
         int vertex;
@@ -33,7 +35,7 @@ private:
 public:
     explicit WavefrontObject(const std::string& path);
     WavefrontObject() = default;
-    ~WavefrontObject() = default;
+    ~WavefrontObject() override = default;
 
     void AddVertex(Vec3 vert, Vec2 texCoord, Vec3 normal);
     void AddVertex(float x, float y, float z);
@@ -46,6 +48,10 @@ public:
     [[nodiscard]] std::vector<Vec3> const& getNormals() const { return normals; }
     [[nodiscard]] std::vector<Vec2> const& getTexCoords() const { return texCoords; }
     [[nodiscard]] int3 getFaceVerts(size_t faceIndex) const;
+
+    //IMeshData Functions
+    size_t triCount() const override {return faceIndices.size();}
+    std::array<VertexData,3> getTri(size_t i) const override;
 };
 
 
