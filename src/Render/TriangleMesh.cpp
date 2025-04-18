@@ -31,10 +31,43 @@ TriangleMesh::TriangleMesh(const IMeshData &mesh) {
         for (int j = 0; j < 3; ++j) {
             this->indexBuffer.push_back(face[j]);
         }
+        this->nFaces++;
     }
 }
 
-Hit TriangleMesh::Trace(Vec3 src, Vec3 dir) {
+void SmoothShade(Vec2& _st, Vec3& _n, const VertexData& v0, const VertexData& v1, const VertexData& v2) {
+    //Calculate Vertex Normal
+    _n = (1 - _st.x - _st.y) * v1.normal + _st.x * v2.normal + _st.y * v0.normal;
+
+    //Calculate Texture Coordinates
+    _st = (1 - _st.x - _st.y) * v2.texCoord + _st.x * v0.texCoord + _st.y * v1.texCoord;
+}
+
+Hit TriangleMesh::Trace(const Vec3 src, const Vec3 dir) {
+    Hit out = {false,MAXFLOAT};
+    int hitIndex = 0;
+    for (int i = 0; i < nFaces; ++i) {
+        const int index = i * 3;
+        const Tri tri =
+            Tri{vertexBuffer[indexBuffer[index]].position,
+            vertexBuffer[indexBuffer[index + 1]].position,
+            vertexBuffer[indexBuffer[index + 2]].position}
+        .Transform(this->transform);
+
+        if (const auto hit = MollerTrumbore(src, dir, tri); hit.hit && hit.distance < out.distance) {
+            out = hit;
+            hitIndex = index;
+        }
+    }
+    if(out.hit ) {
+        SmoothShade(
+            out.texCoord,
+            out.normal,
+            vertexBuffer[indexBuffer[hitIndex]],
+            vertexBuffer[indexBuffer[hitIndex + 1]],
+            vertexBuffer[indexBuffer[hitIndex + 2]]);
+        return out;
+    }
     return {false};
 }
 

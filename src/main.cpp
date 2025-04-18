@@ -18,7 +18,7 @@ int main() {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
 
-    auto monkey = WavefrontObject("resources/meshes/sphere.obj");
+    auto monkey = WavefrontObject("resources/meshes/monkey.obj");
 
     auto context = nsi::ProgramContext();
     auto ui = nsi::UserInterface(context);
@@ -55,7 +55,8 @@ int main() {
     cube.AddFace(2,1,0);
     cube.AddFace(1,2,3);
 
-    auto mesh = context.scene.AddMesh(Vec3(0,0,0),monkey);
+    IMeshData& meshData = monkey;
+    auto mesh = context.scene.AddMesh(Vec3(0,0,0),meshData);
     //mesh.shape.transform.Scale(2.f);
     //mesh.shape.transform.Rotate(sRotation);
 
