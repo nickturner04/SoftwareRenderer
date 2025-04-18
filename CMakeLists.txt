@@ -40,5 +40,7 @@ add_executable(NSR src/main.cpp
         include/Render/PointMesh.h
         src/Render/PointMesh.cpp
         src/util/Mathematics/Vector/Vec2.cpp
-        include/Render/TriangleMesh.h)
+        include/Render/TriangleMesh.h
+        include/Storage/IMeshData.h
+        src/Render/TriangleMesh.cpp)
 target_link_libraries(NSR SDL2::SDL2 SDL2_image::SDL2_image-static SDL2_ttf::SDL2_ttf-static)

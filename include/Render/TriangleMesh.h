@@ -10,20 +10,15 @@
 
 #include "Mathematics.h"
 #include "Primitives.h"
-#include "Storage/WavefrontObject.h"
+#include "Storage/IMeshData.h"
 
-struct VertexData {
-    Vec3 position;
-    Vec3 normal;
-    Vec2 texCoord;
-};
 
 namespace nsr {
     class TriangleMesh final : public Primitive {
     public:
 
         TriangleMesh() = default;
-        explicit TriangleMesh(WavefrontObject &obj);
+        explicit TriangleMesh(IMeshData &mesh);
         ~TriangleMesh() override = default;
         Hit Trace(Vec3 src, Vec3 dir) override;
 
