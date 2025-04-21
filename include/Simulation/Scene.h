@@ -32,6 +32,7 @@ class SceneObject {
     SceneObject(Primitive& _shape, int _materialIndex): shape(_shape),materialIndex(_materialIndex){}
     Hit Trace(Vec3 src, Vec3 dir) const;
     bool enabled = true;
+    Transformation transformation;
     Primitive& shape;
     int materialIndex;
 };

@@ -17,7 +17,9 @@ Vec3 Scene::Shade(const ObjectHit &hit) const {
 }
 
 Hit SceneObject::Trace(const Vec3 src, const Vec3 dir) const {
-    return shape.Trace(src, dir);
+    return {false};
+    Transformation x = this->transformation;
+    return shape.Trace(src, dir,x);
 }
 
 Vec3 Material::Shade(Hit hit) const {
@@ -27,7 +29,7 @@ Vec3 Material::Shade(Hit hit) const {
 
 
 SceneObject& Scene::AddSphere(const Vec3 position = {0.0f,0.f,0.f}, const float radius = 1.0f, const Vec3 color = {1.f,1.f,1.f}) {
-    const auto sphere = new Sphere(position, radius);
+    const auto sphere = new Sphere(radius);
     primitives.push_back(sphere);
     materials.emplace_back(color);
     objects.emplace_back(*primitives[this->index],index);
@@ -46,20 +48,18 @@ SceneObject& Scene::AddTriangle(Vec3 position, const Tri &tri, Vec3 color) {
 
 SceneObject &Scene::AddMesh(const Vec3 position, const WavefrontObject& object) {
     const auto mesh = new PolygonMesh(object);
-    mesh->transform.position = position;
     primitives.push_back(mesh);
     materials.emplace_back(Vec3(1,1,1));
-    objects.emplace_back(*primitives[this->index],this->index);
+    objects.emplace_back(*primitives[this->index],this->index).transformation.position = position;
     index++;
     return objects[this->index - 1];
 }
 
 SceneObject &Scene::AddMesh(const Vec3 position, const IMeshData &data) {
     const auto mesh = new TriangleMesh(data);
-    mesh->transform.position = position;
     primitives.push_back(mesh);
     materials.emplace_back(Vec3(1,1,1));
-    objects.emplace_back(*primitives[this->index],this->index);
+    objects.emplace_back(*primitives[this->index],this->index).transformation.position = position;
     index++;
     return objects[this->index - 1];
 }
@@ -67,10 +67,9 @@ SceneObject &Scene::AddMesh(const Vec3 position, const IMeshData &data) {
 
 SceneObject &Scene::AddPointMesh(const Vec3 position, const WavefrontObject &object) {
     const auto mesh = new PointMesh(object);
-    mesh->transform.position = position;
     primitives.push_back(mesh);
     materials.emplace_back(Vec3(1,1,1));
-    objects.emplace_back(*primitives[this->index],this->index);
+    objects.emplace_back(*primitives[this->index],this->index).transformation.position = position;
     index++;
     return objects[this->index - 1];
 

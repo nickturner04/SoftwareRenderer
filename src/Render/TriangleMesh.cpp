@@ -44,7 +44,7 @@ void SmoothShade(Vec2& _st, Vec3& _n, const VertexData& v0, const VertexData& v1
     _st = (1 - _st.x - _st.y) * v2.texCoord + _st.x * v0.texCoord + _st.y * v1.texCoord;
 }
 
-Hit TriangleMesh::Trace(const Vec3 src, const Vec3 dir) {
+Hit TriangleMesh::Trace(const Vec3 src, const Vec3 dir, Transformation &_transform) {
     Hit out = {false,MAXFLOAT};
     int hitIndex = 0;
     for (int i = 0; i < nFaces; ++i) {
@@ -53,7 +53,7 @@ Hit TriangleMesh::Trace(const Vec3 src, const Vec3 dir) {
             Tri{vertexBuffer[indexBuffer[index]].position,
             vertexBuffer[indexBuffer[index + 1]].position,
             vertexBuffer[indexBuffer[index + 2]].position}
-        .Transform(this->transform);
+        .Transform(_transform);
 
         if (const auto hit = MollerTrumbore(src, dir, tri); hit.hit && hit.distance < out.distance) {
             out = hit;
@@ -67,7 +67,7 @@ Hit TriangleMesh::Trace(const Vec3 src, const Vec3 dir) {
             vertexBuffer[indexBuffer[hitIndex]],
             vertexBuffer[indexBuffer[hitIndex + 1]],
             vertexBuffer[indexBuffer[hitIndex + 2]],
-            this->transform.rotation);
+            _transform.rotation);
         return out;
     }
     return {false};

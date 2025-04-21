@@ -58,7 +58,7 @@ int main() {
     IMeshData& meshData = monkey;
     auto mesh = context.scene.AddMesh(Vec3(0,0,0),meshData);
     //mesh.shape.transform.Scale(2.f);
-    mesh.shape.transform.Rotate(sRotation);
+    mesh.transformation.Rotate(sRotation);
 
     Transformation shapes;
     //shapes.Rotate(sRotation);

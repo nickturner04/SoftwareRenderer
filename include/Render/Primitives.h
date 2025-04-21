@@ -18,23 +18,22 @@ namespace nsr {
     class Primitive {
     public:
         virtual ~Primitive() = default;
-        virtual Hit Trace(Vec3 src, Vec3 dir) = 0;
-        Transformation transform;
+        virtual Hit Trace(Vec3 src, Vec3 dir,Transformation &_transform) = 0;
     };
 
     class Sphere final : public Primitive {
     public:
         Sphere() = default;
-        Sphere(Vec3 _transform, float _radius);
+        explicit Sphere(float _radius);
         float radius = 1.0f;
-        Hit Trace(Vec3 src, Vec3 dir) override;
+        Hit Trace(Vec3 src, Vec3 dir,Transformation &_transform) override;
     };
 
     class Triangle final : public Primitive {
     public:
         Triangle() = delete;
         Triangle(Vec3 _transform, const Tri &_tri);
-        Hit Trace(Vec3 src, Vec3 dir) override;
+        Hit Trace(Vec3 src, Vec3 dir, Transformation &_transform) override;
     private:
         Tri tri;
     };

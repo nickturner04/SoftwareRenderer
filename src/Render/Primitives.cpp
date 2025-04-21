@@ -5,30 +5,27 @@
 namespace nsr {
 
 
-Sphere::Sphere(const Vec3 _transform, const float _radius) {
-    transform.position = _transform;
+Sphere::Sphere(const float _radius) {
     radius = _radius;
 }
 
 
-Hit Sphere::Trace(Vec3 src, Vec3 dir) {
-    const auto l = this->transform.position - src;
-    const auto r = this->radius * transform.scale.x;
+Hit Sphere::Trace(Vec3 src, Vec3 dir, Transformation &_transform) {
+    const auto l = _transform.position - src;
+    const auto r = this->radius * _transform.scale.x;
     auto tca = l.dot(dir);
 
     if(auto d = std::sqrt(l.dot(l) - tca * tca); d < r) {
         auto thc = std::sqrt(radius * radius - d * d);
         auto dist = tca - thc;
         auto hitPoint = src + dir * dist;
-        const auto normal = (hitPoint - this->transform.position).normalized();
+        const auto normal = (hitPoint - _transform.position).normalized();
         return {true, dist, normal, hitPoint};
     }
     return {false, MAXFLOAT, Vec3(), Vec3()};
 }
 
-Triangle::Triangle(Vec3 _transform, const Tri &_tri): tri(_tri) {
-    transform.position = _transform;
-}
+Triangle::Triangle(Vec3 _transform, const Tri &_tri): tri(_tri) {}
 
 Hit MollerTrumbore(const Vec3 src, const Vec3 dir, const Tri &tri) {
 
@@ -86,11 +83,11 @@ Hit MollerTrumbore(const Vec3 src, const Vec3 dir, const Tri &tri) {
 
 //Uses the Moller-Trumbore method to raytrace the triangle
     //From Scratchapixel
-Hit Triangle::Trace(const Vec3 src, const Vec3 dir) {
+Hit Triangle::Trace(const Vec3 src, const Vec3 dir, Transformation& _transform) {
 
     constexpr float epsilon = std::numeric_limits<float>::epsilon();
 
-    const auto tri1 = this->tri.Transform(this->transform);
+    const auto tri1 = this->tri.Transform(_transform);
 
     //Find Normal
     const Vec3 ab = tri1.ab();

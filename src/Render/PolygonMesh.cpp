@@ -17,14 +17,14 @@ PolygonMesh::PolygonMesh(const WavefrontObject& obj): nFaces(obj.numFaces()) {
     }
 }
 
-Hit PolygonMesh::Trace(const Vec3 src, const Vec3 dir) {
+Hit PolygonMesh::Trace(const Vec3 src, const Vec3 dir, Transformation& _transform) {
     Hit out = {false,MAXFLOAT};
     int hitIndex = 0;
     for (int i = 0; i < nFaces; ++i) {
         const int index = i * 3;
         const Tri tri = {vertices[indices[index]],vertices[indices[index + 1]],vertices[indices[index + 2]]};
 
-        if (const auto hit = MollerTrumbore(src, dir, tri.Transform(this->transform)); hit.hit && hit.distance < out.distance) {
+        if (const auto hit = MollerTrumbore(src, dir, tri.Transform(_transform)); hit.hit && hit.distance < out.distance) {
             out = hit;
             hitIndex = i;
         }

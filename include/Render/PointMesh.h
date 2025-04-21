@@ -16,7 +16,7 @@ public:
     explicit PointMesh(const WavefrontObject& object);
     ~PointMesh() override = default;
 
-    Hit Trace(Vec3 src, Vec3 dir) override;
+    Hit Trace(Vec3 src, Vec3 dir, Transformation& _transform) override;
 };
 }
 
