@@ -35,9 +35,10 @@ TriangleMesh::TriangleMesh(const IMeshData &mesh) {
     }
 }
 
-void SmoothShade(Vec2& _st, Vec3& _n, const VertexData& v0, const VertexData& v1, const VertexData& v2) {
+void SmoothShade(Vec2& _st, Vec3& _n, const VertexData& v0, const VertexData& v1, const VertexData& v2, const Quaternion transformation) {
     //Calculate Vertex Normal
     _n = (1 - _st.x - _st.y) * v1.normal + _st.x * v2.normal + _st.y * v0.normal;
+    _n = transformation * _n;
 
     //Calculate Texture Coordinates
     _st = (1 - _st.x - _st.y) * v2.texCoord + _st.x * v0.texCoord + _st.y * v1.texCoord;
@@ -65,7 +66,8 @@ Hit TriangleMesh::Trace(const Vec3 src, const Vec3 dir) {
             out.normal,
             vertexBuffer[indexBuffer[hitIndex]],
             vertexBuffer[indexBuffer[hitIndex + 1]],
-            vertexBuffer[indexBuffer[hitIndex + 2]]);
+            vertexBuffer[indexBuffer[hitIndex + 2]],
+            this->transform.rotation);
         return out;
     }
     return {false};
