@@ -17,7 +17,6 @@ Vec3 Scene::Shade(const ObjectHit &hit) const {
 }
 
 Hit SceneObject::Trace(const Vec3 src, const Vec3 dir) const {
-    return {false};
     Transformation x = this->transformation;
     return shape.Trace(src, dir,x);
 }

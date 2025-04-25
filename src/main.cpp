@@ -56,7 +56,7 @@ int main() {
     cube.AddFace(1,2,3);
 
     IMeshData& meshData = monkey;
-    auto mesh = context.scene.AddMesh(Vec3(0,0,0),meshData);
+    auto &mesh = context.scene.AddMesh(Vec3(0,0,0),meshData);
     //mesh.shape.transform.Scale(2.f);
     mesh.transformation.Rotate(sRotation);
 
