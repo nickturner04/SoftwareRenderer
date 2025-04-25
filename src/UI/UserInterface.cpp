@@ -24,7 +24,7 @@ SDL_Texture * IconRegistry::GetIcon(const std::string &iconPath) {
     const std::string path = iconDir + iconPath;
     if(!icons.contains(path)) {
         SDL_Surface *surface = IMG_Load(path.c_str());
-        SDL_Texture *texture = SDL_CreateTextureFromSurface(context.renderer, surface);
+        SDL_Texture *texture = SDL_CreateTextureFromSurface(context.m_renderer, surface);
         SDL_FreeSurface(surface);
         icons.insert(std::pair(iconPath, texture));
         return texture;
@@ -136,7 +136,7 @@ Toolbar * UserInterface::AddToolbar(int x, int y, int w, int h, int bw, int bh) 
 
 
 void UserInterface::Draw(const MouseState mouse_state) const {
-    const auto renderer = programContext.renderer;
+    const auto renderer = programContext.m_renderer;
     SDL_RenderClear(renderer);
 
 

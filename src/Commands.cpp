@@ -25,7 +25,7 @@ bool Command::CheckParameters(const std::vector<Parameter>& parameters) const {
 }
 
 void Commands::ResetCamera(ProgramContext &context) {
-    context.scene.camera.Reset();
+    context.m_scene.camera.Reset();
 }
 
 

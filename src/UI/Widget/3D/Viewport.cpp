@@ -13,8 +13,8 @@ Viewport::Viewport(int x, int y, int w, int h,int x_internal, int y_internal,Pro
     this->y = y;
     this->w = w;
     this->h = h;
-    screen = new  nsr::RenderScreen(context.renderer,x_internal,y_internal);;
-    scene = &context.scene;
+    screen = new  nsr::RenderScreen(context.m_renderer,x_internal,y_internal);;
+    scene = &context.m_scene;
 }
 
 Viewport::~Viewport() {

@@ -13,14 +13,15 @@ namespace nsi {
 
 class ProgramContext {
 public:
-    ProgramContext();
+    ProgramContext() = delete;
     ProgramContext(int width, int height);
     ~ProgramContext();
 
-    SDL_Window *window;
-    SDL_Renderer *renderer;
+    SDL_Window *m_window;
+    SDL_Renderer *m_renderer;
+    SDL_GLContext m_glContext;
     int windowWidth, windowHeight;
-    nsr::Scene scene;
+    nsr::Scene m_scene;
 };
 
 }

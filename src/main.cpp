@@ -20,11 +20,11 @@ int main() {
 
     auto monkey = WavefrontObject("resources/meshes/cube.obj");
 
-    auto context = nsi::ProgramContext();
+    auto context = nsi::ProgramContext(800,600);
     auto ui = nsi::UserInterface(context);
     ui.BuildUI();
 
-    context.scene.camera.transform.Translate(-Vec3::Forward * 10.f);
+    context.m_scene.camera.transform.Translate(-Vec3::Forward * 10.f);
 
     Quaternion sRotation = Quaternion::AxisAngle(Vec3(1,0,0), turn * .5);
 
@@ -37,7 +37,7 @@ int main() {
 
 
     IMeshData& meshData = monkey;
-    auto &mesh = context.scene.AddPointMesh(Vec3(0,0,0),monkey);
+    auto &mesh = context.m_scene.AddPointMesh(Vec3(0,0,0),monkey);
     mesh.transformation.Scale(2.f);
     mesh.transformation.Rotate(sRotation);
 

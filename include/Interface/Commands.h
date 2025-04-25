@@ -45,7 +45,7 @@ class Commands {
 public:
     Commands();
     ~Commands();
-    ProgramContext context;
+    ProgramContext* context;
     std::unordered_map<std::string, Command*> commands;
 
     void ExecuteCommand(ProgramContext& context ,std::string_view command) {
