@@ -15,12 +15,17 @@ struct VertexData {
     bool operator==(const VertexData & _rhs) const;
 };
 
-
+//Abstract class for representing a triangulated mesh, allows faces to be iterated through.
 class IMeshData {
 public:
     virtual ~IMeshData() = default;
+    //Get Triangles(full vertex data)
     [[nodiscard]] virtual size_t triCount() const = 0;
     [[nodiscard]] virtual std::array<VertexData,3> getTri(size_t i) const = 0;
+
+    //Get points(not full vertex data)
+    [[nodiscard]] virtual size_t pointCount() const = 0;
+    [[nodiscard]] virtual Vec3 getPoint(size_t i) const = 0;
 
 };
 

@@ -43,5 +43,6 @@ add_executable(NSR src/main.cpp
         include/Render/TriangleMesh.h
         include/Storage/IMeshData.h
         src/Render/TriangleMesh.cpp
-        src/util/Storage/VertexData.cpp)
+        src/util/Storage/VertexData.cpp
+        include/Interface/GLViewport.h)
 target_link_libraries(NSR SDL2::SDL2 SDL2_image::SDL2_image-static SDL2_ttf::SDL2_ttf-static)

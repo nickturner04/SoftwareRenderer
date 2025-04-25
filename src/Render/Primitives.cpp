@@ -27,6 +27,8 @@ Hit Sphere::Trace(Vec3 src, Vec3 dir, Transformation &_transform) {
 
 Triangle::Triangle(Vec3 _transform, const Tri &_tri): tri(_tri) {}
 
+//Uses the Moller-Trumbore method to raytrace the triangle, use this for tracing groups of triangles
+//From Scratchapixel
 Hit MollerTrumbore(const Vec3 src, const Vec3 dir, const Tri &tri) {
 
     constexpr float epsilon = std::numeric_limits<float>::epsilon();

@@ -50,8 +50,11 @@ public:
     [[nodiscard]] int3 getFaceVerts(size_t faceIndex) const;
 
     //IMeshData Functions
-    size_t triCount() const override {return faceIndices.size();}
-    std::array<VertexData,3> getTri(size_t i) const override;
+    [[nodiscard]] size_t triCount() const override {return faceIndices.size();}
+    [[nodiscard]] std::array<VertexData,3> getTri(size_t i) const override;
+
+    [[nodiscard]] size_t pointCount() const override {return  vertices.size();}
+    [[nodiscard]] Vec3 getPoint(const size_t i) const override{return vertices[i];}
 };
 
 

@@ -4,7 +4,6 @@
 
 #ifndef PROGRAMCONTEXT_H
 #define PROGRAMCONTEXT_H
-#include <memory>
 #include <SDL_render.h>
 #include <SDL_video.h>
 

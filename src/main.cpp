@@ -18,13 +18,12 @@ int main() {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
 
-    auto monkey = WavefrontObject("resources/meshes/monkey.obj");
+    auto monkey = WavefrontObject("resources/meshes/cube.obj");
 
     auto context = nsi::ProgramContext();
     auto ui = nsi::UserInterface(context);
     ui.BuildUI();
 
-    Vec3 axis = (Vec3::Forward + Vec3::Up).normalized();
     context.scene.camera.transform.Translate(-Vec3::Forward * 10.f);
 
     Quaternion sRotation = Quaternion::AxisAngle(Vec3(1,0,0), turn * .5);
@@ -36,32 +35,12 @@ int main() {
     //Forward
     //auto ZSphere = context.scene.AddSphere(Vec3(0,0,3),1.0f, Vec3(0,0,1));
 
-    //context.scene.AddSphere(Vec3(-6,-4.5,0),1.0f, Vec3(1,1,1));
-
-
-    //auto triangle = context.scene.AddTriangle(Vec3(0,0,0),Tri(Vec3(2.5,2.5,0),Vec3(-2.5,2.5f,0),Vec3(0,-2.5f,0)),Vec3(1,1,0));
-    //triangle.shape.transform.Scale(.5f);
-
-    auto cube = WavefrontObject();
-    cube.AddVertex(-1,-1,-1);
-    cube.AddVertex(-1,-1,1);
-    cube.AddVertex(-1,1,-1);
-    cube.AddVertex(-1,1,1);
-    cube.AddVertex(1,-1,-1);
-    cube.AddVertex(1,-1,1);
-    cube.AddVertex(1,1,-1);
-    cube.AddVertex(1,1,1);
-
-    cube.AddFace(2,1,0);
-    cube.AddFace(1,2,3);
 
     IMeshData& meshData = monkey;
-    auto &mesh = context.scene.AddMesh(Vec3(0,0,0),meshData);
-    //mesh.shape.transform.Scale(2.f);
+    auto &mesh = context.scene.AddPointMesh(Vec3(0,0,0),monkey);
+    mesh.transformation.Scale(2.f);
     mesh.transformation.Rotate(sRotation);
 
-    Transformation shapes;
-    //shapes.Rotate(sRotation);
 
     bool programRunning = true;
     nsi::MouseState mouseState = {0,0,0};
@@ -87,12 +66,6 @@ int main() {
         const auto mouseXdelta = mouseXNew - mouseXOld;
         const auto mouseYdelta = mouseYNew - mouseYOld;
 
-
-        auto [x, y, z] = shapes.axes();
-        //std::cout << x << ", " << y << ", " << z << std::endl;
-        //YSphere.shape.transform = (y.normalized()) * 3.f;
-        //ZSphere.shape.transform = (z.normalized()) * 3.f;
-        //XSphere.shape.transform = x.normalized() * 3.f;
         ui.Draw({mouseXNew, mouseYNew, mouseXdelta, mouseYdelta,mouseState.buttons});
     }
     return 0;

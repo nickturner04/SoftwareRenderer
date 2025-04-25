@@ -4,8 +4,10 @@
 
 #ifndef POINTMESH_H
 #define POINTMESH_H
+#include <vector>
+
 #include "Primitives.h"
-#include "Storage/WavefrontObject.h"
+#include "Storage/IMeshData.h"
 
 namespace nsr {
 class PointMesh final : public Primitive{
@@ -13,7 +15,7 @@ class PointMesh final : public Primitive{
     std::vector<Vec3> m_points;
 public:
     PointMesh() = default;
-    explicit PointMesh(const WavefrontObject& object);
+    explicit PointMesh(const IMeshData& mesh);
     ~PointMesh() override = default;
 
     Hit Trace(Vec3 src, Vec3 dir, Transformation& _transform) override;

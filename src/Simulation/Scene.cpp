@@ -2,8 +2,7 @@
 // Created by s5614562 on 06/03/25.
 //
 
-#include "../../include/Simulation/Scene.h"
-#include <cmath>
+#include "Simulation/Scene.h"
 
 #include "Render/PointMesh.h"
 #include "Render/PolygonMesh.h"
@@ -64,7 +63,7 @@ SceneObject &Scene::AddMesh(const Vec3 position, const IMeshData &data) {
 }
 
 
-SceneObject &Scene::AddPointMesh(const Vec3 position, const WavefrontObject &object) {
+SceneObject &Scene::AddPointMesh(const Vec3 position, const IMeshData &object) {
     const auto mesh = new PointMesh(object);
     primitives.push_back(mesh);
     materials.emplace_back(Vec3(1,1,1));
