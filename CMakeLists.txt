@@ -1,14 +1,17 @@
 cmake_minimum_required(VERSION 3.29)
 project(NSR)
 
+set(TargetName nglSceneInterface)
+
 set(CMAKE_CXX_STANDARD 23)
 
+find_package(NGL REQUIRED CONFIG)
 find_package(SDL2 REQUIRED CONFIG)
 find_package(SDL2_image REQUIRED CONFIG)
 find_package(SDL2_ttf REQUIRED CONFIG)
-include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL_TTF_INCLUDE_DIR} include)
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL_TTF_INCLUDE_DIR} $ENV{HOME}/NGL/include include)
 
-add_executable(NSR src/main.cpp
+add_executable(${TargetName} src/main.cpp
         src/ProgramContext.cpp
         include/ProgramContext.h
         include/UserInterface.h
@@ -44,5 +47,7 @@ add_executable(NSR src/main.cpp
         include/Storage/IMeshData.h
         src/Render/TriangleMesh.cpp
         src/util/Storage/VertexData.cpp
-        include/Interface/GLViewport.h)
-target_link_libraries(NSR SDL2::SDL2 SDL2_image::SDL2_image-static SDL2_ttf::SDL2_ttf-static)
+        include/Interface/GLViewport.h
+        src/UI/GLViewport.cpp
+        include/Simulation/NGLCamera.h)
+target_link_libraries(${TargetName} SDL2::SDL2 SDL2_image::SDL2_image-static SDL2_ttf::SDL2_ttf-static)

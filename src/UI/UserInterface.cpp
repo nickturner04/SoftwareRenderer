@@ -93,7 +93,7 @@ void Toolbar::AddButton(IconRegistry& ir, const std::string &iconPath) {
 
 
 
-UserInterface::UserInterface(ProgramContext& _programContext): programContext(_programContext) {
+UserInterface::UserInterface(ProgramContext& _programContext): programContext(_programContext), m_viewport(GLViewport(0,0,programContext.windowWidth,programContext.windowHeight,programContext.windowWidth,programContext.windowHeight,programContext)) {
     containers = std::vector<Container *>();
     iconRegistry = new IconRegistry(programContext);
 }
@@ -135,7 +135,11 @@ Toolbar * UserInterface::AddToolbar(int x, int y, int w, int h, int bw, int bh) 
 
 
 
-void UserInterface::Draw(const MouseState mouse_state) const {
+void UserInterface::Draw(const MouseState mouse_state)  {
+
+    m_viewport.RenderScene();
+
+    return;
     const auto renderer = programContext.m_renderer;
     SDL_RenderClear(renderer);
 

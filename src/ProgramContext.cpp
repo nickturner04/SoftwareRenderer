@@ -3,6 +3,7 @@
 //
 
 #include "ProgramContext.h"
+#include <ngl/NGLInit.h>
 namespace nsi {
 
 ProgramContext::ProgramContext(const int width, const int height) {
@@ -12,6 +13,7 @@ ProgramContext::ProgramContext(const int width, const int height) {
     m_glContext = SDL_GL_CreateContext(m_window);
     SDL_GL_MakeCurrent(m_window, m_glContext);
     SDL_GL_SetSwapInterval(1);
+    ngl::NGLInit::initialize();
     m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
 }
 ProgramContext::~ProgramContext() {

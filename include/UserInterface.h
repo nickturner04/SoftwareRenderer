@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "ProgramContext.h"
+#include "Interface/GLViewport.h"
 
 namespace nsi {
 
@@ -69,7 +70,7 @@ public:
     explicit UserInterface(ProgramContext& _programContext);
     ~UserInterface();
     void BuildUI();
-    void Draw(MouseState mouse_state) const;
+    void Draw(MouseState mouse_state);
     void RegisterIcon(const std::string &iconPath) const;
     void AddPicture(const std::string &iconPath, int x, int y, int w, int h);
     void AddViewport(int x, int y, int w, int h, int x_internal, int y_internal);
@@ -77,6 +78,7 @@ public:
 
     ProgramContext& programContext;
     std::vector<Container*> containers;
+    GLViewport m_viewport;
     IconRegistry* iconRegistry;
 };
 

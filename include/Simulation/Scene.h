@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "Mathematics.h"
+#include "NGLCamera.h"
 #include "Render/Primitives.h"
 #include "Storage/WavefrontObject.h"
 
@@ -58,6 +59,7 @@ public:
     [[nodiscard]] ObjectHit Trace(Vec3 src, Vec3 dir) const;
     [[nodiscard]] Vec3 Shade(const ObjectHit &hit) const;
     Camera camera;
+    NGLCamera m_nglCamera;
     std::vector<Primitive*> primitives;
     std::vector<Material> materials;
     std::vector<SceneObject> objects;

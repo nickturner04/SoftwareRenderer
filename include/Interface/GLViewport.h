@@ -10,7 +10,7 @@ namespace nsi {
 //Real Time Rendering viewport
 class GLViewport {
 public:
-    GLViewport(int _x, int _y, int _w, int _h,int _wInternal, int _hInternal,ProgramContext & context);
+    GLViewport(int _x, int _y, int _w, int _h,int _wInternal, int _hInternal,ProgramContext & _context);
     ~GLViewport() = default;
 
     void RenderScene();
@@ -21,8 +21,8 @@ private:
     int m_y;
     int m_w;
     int m_h;
+    int m_wInternal;
     int m_hInternal;
-    int m_yInternal;
 };
 
 } // nsi
