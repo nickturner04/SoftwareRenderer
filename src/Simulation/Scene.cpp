@@ -44,15 +44,6 @@ SceneObject& Scene::AddTriangle(Vec3 position, const Tri &tri, Vec3 color) {
     return objects[index - 1];
 }
 
-SceneObject &Scene::AddMesh(const Vec3 position, const WavefrontObject& object) {
-    const auto mesh = new PolygonMesh(object);
-    primitives.push_back(mesh);
-    materials.emplace_back(Vec3(1,1,1));
-    objects.emplace_back(*primitives[this->index],this->index).transformation.position = position;
-    index++;
-    return objects[this->index - 1];
-}
-
 SceneObject &Scene::AddMesh(const Vec3 position, const IMeshData &data) {
     const auto mesh = new TriangleMesh(data);
     primitives.push_back(mesh);
