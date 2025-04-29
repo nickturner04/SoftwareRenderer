@@ -36,9 +36,9 @@ int main() {
     //auto ZSphere = context.scene.AddSphere(Vec3(0,0,3),1.0f, Vec3(0,0,1));
 
 
-    IMeshData& meshData = monkey;
     auto &mesh = context.m_scene.AddMesh(Vec3(0,0,0),monkey);
-    //mesh.transformation.Scale(.f);
+    mesh.transformation.Translate(0.01,0,0);
+    mesh.transformation.Scale(2.f);
     mesh.transformation.Rotate(sRotation);
 
 

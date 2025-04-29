@@ -118,10 +118,14 @@ public:
 
     void Rotate(const Quaternion& _rotation);
     void Translate(const Vec3& translation);
+    void Translate(float x, float y, float z);
     void Scale(const Vec3& _scale);
     void Scale(float _scale);
 
-    void TranslateLocal(const Vec3 &translation);
+    //Translate the position according to the local axes defined by the rotation
+    void TranslateLocal(const Vec3& _translation);
+    //Translate a point from local to world space using this transformation
+    [[nodiscard]] Vec3 TransformPoint(const Vec3 &_point) const;
 
     Vec3 forward();
     Vec3 up();

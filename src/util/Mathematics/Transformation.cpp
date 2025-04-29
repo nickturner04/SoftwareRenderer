@@ -8,6 +8,11 @@ void Transformation::Rotate(const Quaternion& _rotation) {
 void Transformation::Translate(const Vec3 &translation) {
     position += translation;
 }
+void Transformation::Translate(float x, float y, float z) {
+    position.x += x;
+    position.y += y;
+    position.z += z;
+}
 void Transformation::Scale(const Vec3 &_scale) {
     scale *= _scale;
 }
@@ -16,9 +21,13 @@ void Transformation::Scale(const float _scale) {
 }
 
 
-void Transformation::TranslateLocal(const Vec3 &translation) {
-    auto [x, y, z] = this->axes();
-    position += (x * translation.x + y * translation.y + z * translation.z);
+void Transformation::TranslateLocal(const Vec3 &_translation) {
+    const auto [x, y, z] = this->axes();
+    this->position += x * _translation.x + y * _translation.y + z * _translation.z;
+}
+
+Vec3 Transformation::TransformPoint(const Vec3 &_point) const {
+    return rotation * _point * scale + position;
 }
 
 Vec3 Transformation::forward() {
